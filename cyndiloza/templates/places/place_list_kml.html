@@ -1,0 +1,41 @@
+{% autoescape off %}
+{% spaceless %}
+
+{% load markup typogrify_tags %}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>{{ site.name }}&apos;s journalism articles</name>
+    <description><![CDATA[The locations of Cyndi Loza's journalism articles in Reno, Nevada, and Chicago, Illinois]]></description>
+    {% for publication in publication_list %}
+    {% if publication.places %}
+    <Style id="style{{ publication.id }}">
+      <IconStyle>
+        <Icon>
+          <href>{% if publication.icon %}{{ publication.icon.url }}{% else %}{{ MEDIA_URL }}img/map/marker.png{% endif %}</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    {% endif %}
+    {% endfor %}
+    {% for publication in publication_list %}
+    {% if publication.places %}
+    {% for place in publication.places|dictsort:"name" %}
+    <Placemark id="{{ place.id }}">
+      <name>{{ place.name|escape }}</name>
+      <description><![CDATA[<p><a href="http://www.cyndiloza.com{{ place.get_absolute_url }}">View place homepage</a></p><ul>{% for article in place.article_set.all|dictsortreversed:"date" %}<li><a href="http://www.cyndiloza.com{{ article.get_absolute_url }}">{{ article.headline|escape }}</a></li>{% endfor %}</ul>]]></description>
+      <styleUrl>#style{{ publication.id }}</styleUrl>
+      <Point>
+        <coordinates>{{ place.longitude }},{{ place.latitude }},0.000000</coordinates>
+      </Point>
+    </Placemark>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+  </Document>
+</kml>
+
+{% endspaceless %}
+{% endautoescape %}

@@ -1,0 +1,87 @@
+body, ul, ol, dl, h1, h2, h3, h4, h5, h6, td, th, caption, pre, p, blockquote, input, textarea {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.5em;
+  font-weight: normal;
+  color: #222;
+}
+
+html>body {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+a { 
+  color: blue;
+  text-decoration: none; 
+  outline: none;
+}
+
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: bold;
+}
+
+h1 { font-size: 36px; line-height: 36px; padding-top: 18px; padding-bottom: 18px; }
+h2 { font-size: 28px; line-height: 36px; padding-top: 9px; padding-bottom: 9px; }
+h3 { font-size: 18px; line-height: 18px; padding-top: 9px; padding-bottom: 9px; }
+h4 { font-size: 14px; line-height: 18px; padding-top: 9px; padding-bottom: 9px; }
+h5 { font-size: 12px; line-height: 18px; padding-top: 9px; padding-bottom: 9px; }
+h6 { font-size: 10px; line-height: 18px; padding-top: 9px; padding-bottom: 9px; }
+
+p { margin: 0 0 1.5em 0; }
+
+ul, ol {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding-left: 1em;
+  list-style-position: outside;
+  list-style-type: disc;
+}
+
+ol { list-style-type: decimal; }
+
+dl {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+dl dt {
+  font-weight: bold;
+}
+
+blockquote {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding-left: 1.5em;
+  border-left: 1px solid #666;
+  font-style: italic;
+}
+
+blockquote * { color: #666; }
+
+strong { font-weight: bold; }
+
+em { font-style: italic; }
+
+.small {
+  font-size: 10px;
+  line-height: 18px;
+}
+
+.large {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/*
+.quiet {
+  color: #666;
+}
+*/
+
+.access {
+  display: none;
+}

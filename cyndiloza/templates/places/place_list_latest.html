@@ -1,0 +1,17 @@
+{% autoescape off %}{% spaceless %}
+
+{% load markup typogrify_tags %}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<markers>
+
+{% regroup article_list|dictsort:"place.name" by place as place_list %}
+{% for place in place_list %}
+{% ifchanged place.grouper.name %}
+<marker lat="{{ place.grouper.latitude }}" lng="{{ place.grouper.longitude }}" headline="{{ place.grouper.name|escape }}" summary="&lt;ul&gt;{% for article in place.list|dictsortreversed:"date"|slice:":5" %}&lt;li&gt;&lt;a href=&quot;{{ article.get_absolute_url }}&quot;&gt;{{ article.headline|escape }}&lt;/a&gt;&lt;/li&gt;{% endfor %}&lt;/ul&gt;" url="http://{{ site.domain }}{{ place.grouper.get_absolute_url }}" icon="{% if place.list.0.publication.icon %}{{ MEDIA_URL }}{{ place.list.0.publication.icon }}{% else %}http://maps.google.com/mapfiles/marker.png{% endif %}" width="{% if place.list.0.publication.icon %}{{ place.list.0.publication.icon.width }}{% else %}20{% endif %}" height="{% if place.list.0.publcation.icon %}{{ place.list.0.publication.icon.height }}{% else %}34{% endif %}" />
+{% endifchanged %}
+{% endfor %}
+
+</markers>
+
+{% endspaceless %}{% endautoescape %}

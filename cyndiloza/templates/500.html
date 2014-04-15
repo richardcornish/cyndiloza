@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load markup typogrify_tags email %}
+
+
+{% block title %}Page error &#8226; {% endblock %}
+{% block description %}Page error{% endblock %}
+
+{% block css_extra %}
+<link rel="stylesheet" href="http://media.cyndiloza.com/css/style.css">
+{% endblock %}
+
+{% block body_class %}error error-500{% endblock %}
+
+{% block navigation %}
+{% endblock %}
+
+{% block maincontent %}
+{% filter typogrify %}
+
+<div id="story">
+<div id="article">
+<h3>Website error</h3>
+<p>Uh-oh, something's wrong with the website. You had better e-mail me at {{ "cyndi@cyndiloza.com"|encode_string }} and tell me what's happening.</p>
+</div>
+</div>
+
+{% endfilter %}
+{% endblock %}

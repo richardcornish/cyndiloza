@@ -1,0 +1,133 @@
+/* MEDIPHORMEDIA CSS FRAMEWORK 
+   Layout Grid
+   Nathan Borror, Jeff Croft, and Christian Metts
+   March, 2007
+   
+   This layout framework establishes a columnar grid of 50px wide units with 10px
+   gutters. By default, it creates a 950px wide grid of 16 units, but it can be
+   used at narrower widths by overiding the width property for the 'block' class.
+   To determine the correct block width (in pixels), use this formula:
+   
+   ( number of columns * 60 ) - 10
+   
+   The grid is made up of "blocks" and "units." Blocks create horizontal breaks
+   in the layout, often called "hanging lines." Blocks encapsulate units, which
+   can be grouped into "spans" of two to sixteen.
+   
+   Wrapper divs are optional, but they can be used the create horizontal bands
+   across the entire page, even when blocks are centered within them.
+-------------------------------------------------------------------------------- */
+
+
+/* WRAPPERS
+   Wrappers are not used by default, but this commented example is included to
+   show how they can be used.
+-------------------------------------------------------------------------------- */
+.wrapper { 
+  /* background-color: #ff8800; */
+}
+
+
+
+/* BLOCKS (hanging lines or rows)
+   Use .container to wrap units which have nested units.
+-------------------------------------------------------------------------------- */
+
+.block {
+  position: relative;
+  width: 950px; /* Override this value for narrorwer layouts. Use ( x * 60 ) -10, where x is the number of column you want. */
+  margin: 0 auto; /* Layouts are typically centered horizontially, but this can be overriden for flush-left. */
+}
+
+.clear:after,
+.container:after,
+.block:after { 
+  content:  "."; /* Clear fix */
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clear,
+.container,
+.block {
+  zoom: 1; /* IE fix */
+}
+
+
+/* UNITS (columns)
+-------------------------------------------------------------------------------- */
+
+.unit { 
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+/* The first and last units or spans in a block do not have margins. The :first-child and :last-child
+syntax would be nice here, but it doesn't work in IE6 and seems to cause weirdness in Safari, even though
+Safari technically "supports" :first-child and :last child.
+
+Thus, you need to add "first" and "last" classes to your end cap units in each block. An exception
+is made for .span-16, as it is always both the first and last unit in a block. */
+.first { margin-left: 0 }
+.last { margin-right: 0 }
+
+/* .span classes provide elements pre-sized to occupy the width of two or more columns */
+.span-1  { width: 50px; }
+.span-2  { width: 110px; }
+.span-3  { width: 170px; }
+.span-4  { width: 230px; }
+.span-5  { width: 290px; }
+.span-6  { width: 350px; }
+.span-7  { width: 410px; }
+.span-8  { width: 470px; }
+.span-9  { width: 530px; }
+.span-10 { width: 590px; }
+.span-11 { width: 650px; }
+.span-12 { width: 710px; }
+.span-13 { width: 770px; }
+.span-14 { width: 830px; }
+.span-15 { width: 890px; }
+.span-16 { 
+  width: 950px;
+  margin-left: 0; /* We special-case .span16 with no margins, since it is, by nature always both the first and last span in a block. */
+  margin-right: 0;
+}
+
+/* .append and .prepend classes allow for "empty columns" by providing padding on a span or unit. */
+.append-1 { padding-right: 60px; }
+.append-2 { padding-right: 120px; }
+.append-3 { padding-right: 180px; }
+.append-4 { padding-right: 240px; }
+.append-5 { padding-right: 300px; }
+.append-6 { padding-right: 360px; }
+.append-7 { padding-right: 420px; }
+.append-8 { padding-right: 480px; }
+.append-9 { padding-right: 540px; }
+.append-10 { padding-right: 600px; }
+.append-11 { padding-right: 660px; }
+.append-12 { padding-right: 720px; }
+.append-13 { padding-right: 780px; }
+.append-14 { padding-right: 840px; }
+.append-15 { padding-right: 900px; }
+.append-16 { padding-right: 940px; }
+
+.prepend-1 { padding-left: 60px; }
+.prepend-2 { padding-left: 120px; }
+.prepend-3 { padding-left: 180px; }
+.prepend-4 { padding-left: 240px; }
+.prepend-5 { padding-left: 300px; }
+.prepend-6 { padding-left: 360px; }
+.prepend-7 { padding-left: 420px; }
+.prepend-8 { padding-left: 480px; }
+.prepend-9 { padding-left: 540px; }
+.prepend-10 { padding-left: 600px; }
+.prepend-11 { padding-left: 660px; }
+.prepend-12 { padding-left: 720px; }
+.prepend-13 { padding-left: 780px; }
+.prepend-14 { padding-left: 840px; }
+.prepend-15 { padding-left: 900px; }
+.prepend-16 { padding-left: 940px; }

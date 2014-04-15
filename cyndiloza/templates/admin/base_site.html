@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Cyndi Loza admin' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'Cyndi Loza administration' %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block custom %}
+{{ block.super }}
+<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="{{ STATIC_URL }}favicon.ico" />
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/markitup/sets/markdown/style.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/markitup/skins/simple/style.css" />
+<style type="text/css">
+body.login { background: #eee; }
+div#header { background: #eee; }
+div#header h1#site-name { color: #cc0000; }
+div#header div#user-tools { color: #333; }
+div#header div#user-tools a { color: #333; }
+#id_body { font-family: "lucida grande", arial, sans-serif; }
+</style>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/markitup/jquery.markitup.pack.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/markitup/sets/markdown/set.js"></script>
+<script type="text/javascript" >
+   $(document).ready(function() {
+      $("#id_body").markItUp(mySettings);
+   });
+</script>
+{% endblock %}
+
+
+

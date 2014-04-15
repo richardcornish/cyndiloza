@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% load typogrify_tags partition %}
+
+
+{% block script %}
+{# Old key def462df-b70c-4fdb-97a2-7100a64383a5 #}
+<script src="http://www.heatmapapi.com/javascript/HeatmapAPI.aspx?k=089c86f8-e1b9-40c1-81ab-847f40df16eb"></script>
+<script src="http://www.heatmapapi.com/javascript/HeatmapAPIGoogle.js"></script>
+<script src="{{ STATIC_URL }}js/markermanager.js"></script>
+<script>
+$(function() {
+  // Heat map array
+  var data = [];
+  {% regroup article_list|dictsort:"place.name" by place as place_list %}{% for place in place_list %}{% ifchanged place.grouper.name %}
+  data.push({{ place.grouper.latitude }});
+  data.push({{ place.grouper.longitude }});
+  data.push({{ forloop.counter }});
+  {% endifchanged %}{% endfor %}
+  $(drawPublicationsMap("{% url 'places_place_latest' %}", data));
+});
+</script>
+
+{% endblock %}
+
+{% block title %}Places &#8226; {% endblock %}
+
+{% block body_class %}places{% endblock %}
+
+{% block maincontent %}
+{% filter typogrify %}
+
+<h3 class="section" style="margin: 2.75em 0 1.75em; padding: 0;">Places</h3>
+
+<div id="map-places"></div>
+
+    <p class="note">Locations of my last 25 articles <span class="bullet">&#8226;</span> <a href="http://maps.google.com/maps?q=http://{{ site.domain }}{% url 'places_place_kml' %}">See all places at which I've reported</a></p>
+
+    {% for publication in publication_list %}
+    {% if publication.places %}
+    
+    <div class="articles">
+        
+        <h4>{{ publication.name }} <span class="location">{% if publication.city %}{{ publication.city }}, {% endif %}{% if publication.state %}{{ publication.state }}{% endif %}</span></h4>
+        
+        <div class="description">
+            <p>I wrote <strong>{{ publication.article_set.all|length }} article{{ publication.article_set.all|length|pluralize }}</strong> in <strong>{{ publication.places|length }} place{{ publication.places|length|pluralize }}</strong> for {{ publication.name }}:</p>
+        </div>
+    
+        {% regroup publication.places|dictsort:"city" by city as city_list %}
+    
+        {% for city in city_list %}
+            <h5>{{ city.grouper }}</h5>
+    
+            {% for column in city.list|dictsort:"name"|rows:2 %}
+            <ul class="{% cycle first,last %}">
+                {% for place in column %}
+
+                <li><span class="date">{{ place.article_set.all|length }}</span> <span class="placeline"><a href="{{ place.get_absolute_url }}">{{ place.name }}</a></span></li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+    
+        {% endfor %}
+    
+    </div>
+    
+    {% endif %}
+    {% endfor %}
+
+{% endfilter %}
+{% endblock %}

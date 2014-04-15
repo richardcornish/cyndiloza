@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% load markup humanize typogrify_tags thumbnail age %}
+
+
+{% block script %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/article.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/FancyZoom.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/FancyZoomHTML.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dimensions.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.tooltip.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.flash.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.glyph.js"></script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+$(document).ready(function(){
+
+  // Next/previous article tooltip
+  $("#next").tooltip({track: true, delay: 0, showURL: false, opacity: 0.85 });
+  $("#previous").tooltip({track: true, delay: 0, showURL: false, opacity: 0.85 });
+  
+  {% if article.place.latitude and article.place.longitude %}// Load the GoogleMap
+  $(drawMap("{{ article.place.address }}, {{ article.place.city }}, {{ article.place.state }}", "{{ article.place.latitude }}", "{{ article.place.longitude }}"{% if article.maptype %}, {{ article.maptype }}{% else %}G_NORMAL_MAP{% endif %}));{% endif %}
+
+  {% if article.photo or article.place.photo %}// Load the FancyZoom
+  $(setupZoom);{% endif %}
+  
+  $('#article').glyph({ color: '#c00' });
+
+});
+
+$(document).unload(function(){ GUnload(); });
+
+//--><!]]></script>
+{% endblock %}
+
+{% block title %}{{ article.headline|smartypants|fix_ampersands }} &#8226; {% endblock %}
+{% block description %}{% if article.summary %}{{ article.summary|markdown|striptags|smartypants|fix_ampersands }}{% else %}{{ article.body|markdown|striptags|smartypants|fix_ampersands|truncatewords:"20" }}{% endif %}{% endblock %}
+
+{% block body_class %}articles{% endblock %}
+
+{% block date %}<p id="date">{% if article.get_previous_by_date %}<a href="{{ article.get_previous_by_date.get_absolute_url }}" title="Read the previous article, &#8220;{{ article.get_previous_by_date.headline|smartypants|fix_ampersands }}&#8221;" id="previous">&laquo; Previous</a> <span class="bullet screen">&#8226;</span> {% endif %}<span title="Written {{ article.date|timesince }} ago">{{ article.date|date:"l, F"}} <span class="number">{{ article.date|date:"j"}}</span>{{ article.date|date:"S,"}} <span class="number">{{ article.date|date:"Y" }}</span></span> <span class="bullet">&#8226;</span> <a href="{% url 'news_publication_detail' article.publication.slug %}">{{ article.publication }}</a> <span class="bullet">&#8226;</span> <span class="number">{{ article.body|wordcount|intcomma }}</span> words <span id="print"> <span class="bullet screen">&#8226;</span> Click "File" &raquo; "Print..." to print this article.</span> <span class="bullet screen">&#8226;</span> <span id="small">Click "View" &raquo; "Text Size" &raquo; "Smaller" to decrease the text size.</span> <span id="medium">Click "View" &raquo; "Text Size" &raquo; "Smaller" to decrease the text size.</span> <span id="big">Click "View" &raquo; "Text Size" &raquo; "Bigger" to increase the text size.</span>{% if article.get_next_by_date %} <span class="bullet screen">&#8226;</span> <a href="{{ article.get_next_by_date.get_absolute_url }}" title="Read the next article, &#8220;{{ article.get_next_by_date.headline|smartypants|fix_ampersands }}&#8221;" id="next">Next &raquo;</a>{% endif %}</p>{% endblock %}
+
+{% block map %}{% if article.place %}<div id="map-detail"><div id="map"><noscript><p>Please turn on Javascript to view this interactive map.</p></noscript></div><p class="address"><span><a href="{{ article.place.get_absolute_url }}">{% if article.place.name %}{{ article.place.name|smartypants|fix_ampersands }}{% endif %}{% if article.place.address %}, {{ article.place.address|smartypants|fix_ampersands }}{% endif %}{% if article.place.city %}, {{ article.place.city|smartypants|fix_ampersands }}{% endif %}{% if article.place.state %}, {{ article.place.state|smartypants|fix_ampersands }}{% endif %}</a></span></p></div>{% endif %}{% endblock %}
+
+{% block maincontent %}
+
+<div id="story">
+
+{% filter typogrify %}
+
+<h3>{{ article.headline }}</h3>{% endfilter %}
+
+{% if article.photo or article.place or article.place.street or article.sidebarheadline %}
+<div class="glance">
+{% if article.photo %}
+{% thumbnail article.photo "400x300" as thumb %}
+<div class="photo" id="photo">
+<div class="image"><a href="{% if article.photo_url %}{{ article.photo_url }}{% else %}{{ article.photo.url }}{% endif %}"{% if article.caption %} title="{{ article.caption|markdown|striptags|smartypants|fix_ampersands|truncatewords:"15" }}"{% endif %}><img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{% if article.caption %}{{ article.caption|markdown|striptags|smartypants|fix_ampersands }}{% endif %}" /></a></div>
+{% if article.photographer %}<p class="author" style="width: {{ thumb.width }}px">{% if article.photo_url %}<a href="{{ article.photo_url }}">{% endif %}Photo{% if article.photo_url %}</a>{% endif %} by <span class="name">{% if article.photographer_url %}<a href="{{ article.photographer_url }}">{% endif %}{{ article.photographer|typogrify }}{% if article.photographer_url %}</a>{% endif %}</span></p>{% endif %}
+{% if article.caption %}<p class="caption" style="width: {{ thumb.width }}px">{{ article.caption|typogrify }}</p>{% endif %}
+</div>
+{% endthumbnail %}
+{% endif %}
+
+{% filter typogrify %}
+
+{% if article.place.street %}<div class="street"><iframe width="500" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{{ article.place.street }}"></iframe></div>{% else %}{% if article.place.address and article.place.city and article.place.state %}<div class="street" id="pano"></div>{% endif %}{% endif %}
+
+{% if article.dipity %}<div class="street">{{ article.dipity }}</div>{% endif %}
+
+{% if article.sidebarheadline and article.sidebarcontent %}
+<div class="sidebar">
+<h4>{{ article.sidebarheadline|typogrify }}</h4>
+{{ article.sidebarcontent|markdown|typogrify }}
+</div>
+{% endif %}
+
+{% if article.document_title and article.document %}
+<div class="sidebar">
+<h4></h4>
+<p>Download the document "<strong><a href="{{ article.get_document_url }}">{{ article.document_title|typogrify }}</a></strong>"</p>
+</div>
+{% endif %}
+
+{% if article.place %}
+<div class="sidebar related">
+
+<h4>{{ article.place.article_set.all.count }} article{{ article.place.article_set.all.count|pluralize }} at <a href="{{ article.place.get_absolute_url }}">{{ article.place }}</a>:</h4>
+<ul>
+{% for art in article.place.article_set.all %}
+<li><span class="date">{{ art.date|date:"m/d/y" }}</span> <span class="headline"><a href="{{ art.get_absolute_url }}">{{ art.headline }}</a></span></li>
+{% endfor %}
+</ul>
+
+</div>
+{% endif %}
+
+{% comment %}
+{% if article.people.all %}
+<div class="sidebar people">
+<h4>People in this article:</h4>
+<ul>
+{% for person in article.people.all %}
+<li><a href="{{ person.get_absolute_url }}">{{ person.first_name }} {% if person.nickname %}"{{ person.nickname }}"{% endif %} {{ person.last_name }}</a><br /><span class="quiet"> {{ person.title }}{% if person.place %} at <a href="{{ person.place.get_absolute_url }}">{{ person.place.name }}</a>{% endif %}{% if person.birth and not person.death %}, {{ person.birth|age }}{% endif %}{% if person.birth and person.death %}, {{ person.birth|age }}{% endif %}</span>{% if person.url %}<br /><a href="{{ person.url }}">{{ person.website }}</a>{% endif %}</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+{% endcomment %}
+
+</div>
+{% endfilter %}
+{% endif %}
+
+{% filter typogrify %}<p class="author">By <span class="name">{{ article.author }}</span></p>
+{% if article.contributors %}<p class="contributors">Contributing authors: {{ article.contributors }}</p>{% endif %}
+
+<div id="article">
+{% if article.note %}<div id="note">{{ article.note|markdown }}</div>{% endif %}
+{{ article.body|markdown }}
+</div>
+
+<p class="url">This article originally appeared in {% if article.url %}<a href="{{ article.url }}">{{ article.publication }}</a>{% else %}<a href="{{ article.publication.url }}">{{ article.publication }}</a>{% endif %}.</p>
+
+</div>
+
+{% endfilter %}
+{% endblock %}

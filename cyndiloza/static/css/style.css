@@ -1,0 +1,321 @@
+@charset "utf-8";
+
+/* Website
+-------------------------------------------------------------- */
+body { margin: 0; padding: 0; font-size: 80%; font-family: arial, sans-serif; -webkit-text-size-adjust: 100%; }
+div#header-wrap, div#navigation-wrap, div#maincontent-wrap { margin: 0 auto; width: 830px; }
+
+div#header h1, h2 { margin: 0; padding: 0; font-weight: normal; text-align: center; }
+div#header h1 { width: 160px; height: 33px; text-indent: -9999px; background: url(../img/logo.gif) no-repeat; margin: 1.75em auto .25em; }
+div#header h1 a { color: #444; text-decoration: none; display: block; width: 160px; height: 33px; }
+div#header h1 a:hover { text-decoration: none; background: none; }
+div#header h2 { font-family: georgia; font-size: 1.3em; color: #333; font-style: italic; }
+p.access { display: none; }
+abbr { border-bottom: 1px dotted #ccc; cursor: help; }
+address { font-style: normal; }
+cite { font-style: italic; }
+.hide { display: none; }
+
+a { color: #000; text-decoration: underline; }
+a:visited { color: #444; }
+a:hover, a:visited:hover { background-color: #cc0000; color: #fff; text-decoration: none; cursor: pointer; }
+span.amp { font-family: "goudy old style", georgia, serif; font-style: italic; font-weight: normal; background: none; }
+span.caps { letter-spacing: 1px; font-variant: small-caps; background: none !important; }
+span.dquo { background: none; }
+
+div#promo-wrap { background: #3b5998; color: #fff; }
+div#promo { width: 830px; margin: 0 auto; position: relative; }
+div#promo img { position: absolute; top: 0; left: 0; top: 28px; display: block; cursor: pointer; }
+div#promo p { margin: 0 0 0 12px; padding: 7px 0; }
+div#promo a { color: #fff; text-decoration: underline; font-weight: bold; }
+div#promo a:hover { background: none; text-decoration: none; }
+
+div#app-wrap { background: #76797c; color: #fff; }
+div#app { width: 830px; margin: 0 auto; position: relative; }
+div#app img { position: absolute; top: 0; right: 0; top: 38px; display: block; cursor: pointer; }
+div#app p { margin: 0 0 0 12px; padding: 7px 0; }
+div#app a { color: #fff; text-decoration: underline; font-weight: bold; }
+div#app a:hover { background: none; text-decoration: none; }
+
+div#navigation { margin: 2.25em 0 0; border-bottom: 1px solid #ddd; }
+div#navigation h3 { display: none; }
+div#navigation ul,
+div#navigation ul li { margin: 0; padding: 0; list-style: none; }
+div#navigation ul { position: relative; left: 230px; font-family: "myriadpro-bold", "myriad pro", arial, sans-serif; overflow: hidden; width: 500px; }
+div#navigation ul li { margin-right: 3em; float: left; text-transform: uppercase; font-weight: bold; letter-spacing: .1em; }
+#navigation ul li a { color: #444; text-decoration: none; display: block; background: #fff; padding: 8px 10px 4px; }
+#navigation ul li a.hover:hover { color: #fff; background: #cc0000; }
+body.home #navigation li.home a.hover, body.about #navigation li.about a.hover, body.articles #navigation li.articles a.hover, body.places #navigation li.places a.hover { background: #eee; color: #000; }
+
+div#map-detail { padding: 1.5em 0 0; position: relative; }
+div#map-detail p.button { margin: 0; padding: 0; position: absolute; bottom: 5px; left: 7px; z-index: 3; }
+div#map-detail p.address { margin: -18px auto 0; padding: 0; width: 100%; position: relative; z-index: 2; text-align: center; }
+div#map-detail p.address span { background: rgba(255, 255, 255, .75); padding: 4px 6px; font-weight: bold; }
+div#map-detail p.address span a { color: #444; text-decoration: none; padding: 4px; }
+div#map-detail p.address span a:hover { background: none; color: #000; text-decoration: underline; }
+div#map { clear: both; width: 100%; height: 150px; }
+div#map span, div#map-places span { display: none; }
+div#map span.info, div#map-places span.info { display: inline; }
+div#map span.info, div#map-places span.info { padding-bottom: 10px; }
+div#map span.info a, div#map-places span.info a { display: block; font-size: 1.1em; margin-bottom: 3px; }
+div#map span.info a:hover, div#map-places span.info a:hover { background: #cc0000; }
+div#map span.info a.headline, div#map-places span.info a.headline { font-weight: bold; }
+div#map span.info ul, div#map-places span.info ul { margin: 5px 0 0 15px; padding: 0; list-style: square; }
+div#map-places { clear: both; width: 100%; height: 400px; border: 1px solid #aaa; }
+img[src="http://maps.google.com/intl/en_us/mapfiles/poweredby.png"], a[href="http://www.google.com/intl/en_us/help/terms_maps.html"] { display: none; }
+.note { font-family: georgia, times, serif; font-style: italic; text-align: center; color: #666; font-size: 1.1em; }
+
+div#maincontent { clear: both; margin: 10px 0; padding-bottom: .5em; }
+div#maincontent h3.section { margin: 0 0 -2em 0; clear: both; }
+div#maincontent h3 { font-size: 1em; text-transform: uppercase; color: #cc0000; letter-spacing: 1px; margin-bottom: 0; padding: 2em 0 0; }
+div#maincontent h3 a { color: #cc0000; }
+div#maincontent h3 a:hover { color: #fff; }
+div#maincontent h4 { font-size: 1.75em; clear: both; margin: 0; padding: 2em 0 1em; font-weight: normal; font-family: georgia, serif; }
+div#maincontent h4 a { text-decoration: none; border-bottom: 1px solid #ccc; }
+div#maincontent h4 a:hover { border: 0; }
+div#maincontent h4 span.location { font-size: .75em; color: #666; text-transform: uppercase; letter-spacing: .1em; margin-left: .8em; }
+div#maincontent div.info { float: left; width: 415px; }
+div#maincontent div.articles { line-height: 1.25em; }
+div#maincontent div.articles div.logo { float: right; margin-right: 200px; }
+div#maincontent div.articles div.logo a, div.logo a:hover { text-decoration: none; }
+div#maincontent div.articles div.logo a img, div.logo a:hover img { border: 0; display: block; }
+div#maincontent div.articles div.description { width: 400px; margin-bottom: 1em; }
+div#maincontent div.articles p { margin: 0 0 .5em 0; padding: 0; line-height: 1.4em; }
+div#maincontent div.articles ul, div#maincontent div.articles li { margin: 0; padding: 0; list-style: none; }
+div#maincontent div.articles ul { margin: .5em 0 1em; float: left; width: 400px; margin-right: 30px; }
+div#maincontent div.articles ul.last { margin-right: 0; }
+div#maincontent div.articles li { line-height: 1.5em; margin-bottom: 2px; position: relative; }
+div#maincontent ul { position: relative; }
+div#maincontent li span.date { position: absolute; left: 0; color: #666; }
+div#maincontent li span.headline { display: block; margin-left: 60px; }
+div#maincontent li span.placeline { display: block; margin-left: 20px; }
+div#maincontent span.caps { letter-spacing: 0; }
+body.places div#maincontent div.articles h5 { font-size: 1.1em; color: #555; margin: 0; clear: left; }
+
+div#story h3 { margin: .75em 0 .5em; padding: 0; font-family: georgia, times, "times new roman", serif; font-size: 2.25em; font-weight: normal; letter-spacing: 0; text-transform: none; clear: both; color: #000; line-height: 1.3em; }
+div#story h3 span.caps { font-variant: small-caps; }
+div#story p { margin: 0 0 .5em 0; padding: 0; line-height: 1.4em; }
+p#date { margin: 1.5em 0 0; padding: 0; text-align: center; color: #666; position: relative; }
+div#story p#date { margin: -.5em 0 1em; color: #666; font-size: 1.15em; font-family: georgia, times, serif; text-align: left; } /* For places */
+span.bullet { padding-left: 5px; padding-right: 5px; }
+p#date a { color: #666; }
+p#date a:hover { color: #fff; }
+#tooltip { position: absolute; z-index: 3000; background-color: #fff; border: 1px solid #ccc; padding: 7px; opacity: 0.85; }
+#tooltip h3, #tooltip div { margin: 0; padding: 0; font-weight: bold; font-size: 1em; }
+div#story p.author, div#story p.contributors { font-style: italic; font-family: georgia, times, "times new roman", serif; font-size: 1em; color: #555; margin-top: .5em; }
+div#story span.name { padding-left: 3px; font-style: normal; font-weight: bold; font-family: arial, helvetica, sans-serif; text-transform: uppercase; color: #444; font-size: .9em; letter-spacing: .1em; }
+div.glance { float: right; margin-right: -10px; padding: 0 0 1em 0; width: 400px; }
+div#maincontent div.glance h4 { margin: .75em 0 .5em; padding: 0; font-family: arial, helvetica, serif; font-size: 1em; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; line-height: 1.5em; }
+div#maincontent div.glance h5 { margin: .75em 0 .75em; padding: 0; font-family: arial, helvetica, serif; font-size: 1em; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #555; }
+div.glance p, div.glance ul, div.glance ol, div.glance li { margin: 0; padding: 0; }
+div.glance p { margin: 0 0 2em 0; }
+div.glance ul { list-style: square; margin: 0 0 0 1.5em; }
+div.glance ol { list-style: decimal; margin: 0 0 .5em 2em; }
+div.glance li { line-height: 1.4em; margin-bottom: 7px; }
+div.publication-map { margin: -45px 0 0 -10px; }
+div.related { padding-top: 1.5em; }
+div.related ul { list-style: none; margin-left: 0; }
+div.related address { font-style: normal; margin: 7px 0 3px; line-height: 1.5em; }
+div.related address, div.related address a { color: #666; }
+div.related address a:hover { color: #fff; }
+.quiet a { font-weight: normal; color: #666; }
+.quiet a:hover { color: #fff; }
+div.people { color: #333; }
+div.photo { float: left; margin: 0 0 1em 0; padding: .75em 0; border-bottom: 1px solid #ddd; width: 400px; }
+div.image { margin: 0 0 .5em 0; }
+div.image a img { background: #ddd; border: 1px solid #ddd; display: block; padding: 5px; }
+div.image a:hover img { border: 1px solid #cc0000; }
+div.street { clear: left; float: left; width: 500px; height: 300px; padding-bottom: 1em; margin-bottom: .75em; color: #333; border-bottom: 1px solid #ddd; }
+div.sidebar { clear: left; float: left; background: #f5f5f5; padding: 0px 15px 5px; margin-bottom: 1.5em; }
+div.sidebar img { display: block; }
+div.photo p.caption { margin: .7em 0; font-family: georgia, times, "times new roman", serif; font-size: 1.1em; }
+div.download { margin: 0 0 1em; float: left; clear: left; padding-bottom: 1em; }
+div.download p { margin: 0; padding: 0; font-size: 1.2em; font-weight: bold; text-align: center; }
+div.download p a { display: block; text-decoration: none; border: 1px solid #ddd; background: #eee; padding: 7px 13px; color: #333; }
+div.download p a:hover { background: #cc0000; color: #fff; border: 1px solid #cc0000; }
+div#maincontent p.first { font-size: 1.3em; line-height: 1.6em; font-family: georgia, times, "times new roman", serif; }
+body.about div.photo { border-bottom: 0; }
+body.about div.image img { padding: 7px; border: 1px solid #ddd; }
+
+div#article { width: 400px; margin-top: 1em; }
+div#note { margin: 1.5em 0; padding: 10px 12px 5px; background: #eee; }
+div#article div#note h4 { margin: 0 0 .75em 0; padding: 0; }
+div#article h4 { margin: 1.5em 0 1em; padding: 0; font-family: arial, helvetica, sans-serif; font-size: 1em; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; clear: none; }
+div#article h5 { margin: 1.5em 0 .75em; padding: 0; font-family: arial, helvetica, serif; font-size: 1em; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #555; }
+div#article p, div#article ul, div#article ol, div#article li { margin: 0; padding: 0; }
+div#article h4, div#article p, div#article li { line-height: 1.45em; }
+div#article p { margin-bottom: .5em; }
+div#article ul { margin-bottom: 1em; }
+div#article ul li { list-style: square; margin: 0 0 .5em 1.75em; }
+div#article ol li { list-style: decimal; margin: 0 0 .5em 1.75em; }
+div#article span.clincher { font-size: 14px; color: #cc0000; padding-left: 5px; }
+div#story p.url { margin: 1em 0 0; padding: 1em 0 0; color: #444; border-top: 1px solid #ddd; width: 400px; font-family: georgia, times, "times new roman", serif; font-style: italic; }
+div#story p.url a { color: #444; }
+div#story p.url a:hover { color: #fff; }
+
+div#story table { margin: 1em 0; border-collapse: collapse; width: 500px; background: #fff; }
+div#story table thead tr th { border-top: 0; }
+div#story table tr th { text-align: left; border-top: 1px solid #ccc; vertical-align: top; padding: 5px; }
+div#story table tr td { line-height: 1.5em; border-top: 1px solid #ccc; padding: 3px 5px; vertical-align: top; }
+div#story table tr.subhead { margin-top: 5px; background: #e5e5e5; }
+div#story table tr.subhead td { padding: 2px 4px; font-weight: bold; }
+
+div#bio { margin: 1em auto 0; color: #454545; font-family: georgia, "times new roman", times, serif; font-size: 1.54em; line-height: 1.6em; padding: 0 2.25em; border-bottom: 1px solid #ddd; }
+div#bio a { color: #222; }
+div#bio a:hover { color: #fff; }
+
+div#lead { margin-top: -1em; border-bottom: 1px solid #ddd; }
+div#lead div.art { width: 400px; float: right; margin-right: 15px; }
+div#lead div.photo { border: 0; }
+div#lead div.photo a img { display: block; background: #eee; padding: 6px; border: 1px solid #eee; }
+div#lead div.photo a:hover img { border: 1px solid #cc0000; }
+div#lead h4 { clear: none; }
+div#lead div.text { width: 390px; }
+div#lead div.text h4 { margin: .5em 0 0; padding: 0; font-size: 2em; line-height: 1.35em; }
+div#lead div.text p { margin: 1em 0; font-size: 1.15em; line-height: 1.5em; color: #444; }
+div#lead div.text p.jump { margin: .75em 0 1.25em; padding: 0; font-size: 1.15em; font-weight: bold; }
+div#lead div.street { margin-right: 45px; }
+
+div.box { border-bottom: 1px solid #ddd; overflow: hidden; height: 100%; padding: 0 0 2em; }
+div.box dl, div.box dt, div.box dd { margin: 0; padding: 0; line-height: 1.35em; }
+div.box dl { margin: 1em 0 0 0; }
+div.box dt { font-weight: bold; padding: .75em 0 .25em; clear: left; font-size: 1.1em; }
+div.box dd { color: #333; margin: .5em 0 0 0; }
+div.box dd.photo { margin: .5em 1em .5em 0; width: 110px; float: left; }
+div.box dd.photo a img { display: block; border: 1px solid #ccc; padding: 3px; }
+div.box dd.photo a:hover img { border: 1px solid #cc0000; }
+div.box dd a { color: #444; }
+div.box a:hover { color: #fff; }
+
+div#latest { width: 390px; float: left; }
+div#latest p { clear: left; padding: 1em 0 0; }
+div#favorite dl { width: 390px; float: left; }
+div#favorite dl.one { margin-right: 30px; }
+
+div#pies { margin-left: 420px; width: 390px; }
+div#pies img { display: block; margin-top: 2em; border: 0; }
+div#pies ul, div#pies li { margin: 0; padding: 0; list-style: none; text-align: left; }
+div#pies li { color: #666; line-height: 1.8em; font-size: 1.1em; }
+div#pies li strong { padding: 0 10px 0 0; color: #333; }
+div#pies a { color: #444; }
+div#pies a:hover { color: #fff; }
+
+div#latest h3, div#pies h3 { margin-bottom: 1.5em; }
+
+/* Code stolen from EveryBlock.com, and I'm fine with that. Thanks, Wilson! */
+div#words { width: 830px; overflow: hidden; color: #333; border: 0; }
+div#words h3 { position: relative; z-index: 5; }
+div#words p { position: relative; z-index: 5; }
+span#headline { background: #fff; }
+span#headline a { font-weight: bold; }
+p#key { font-weight: bold; }
+p#key span.plain { color: #aaa; }
+p#key span.art { color: #777; }
+div#words ul { margin: 120px 0 3em -2px; padding: 0 0 3em; list-style: none; width: 9999px; font-size: .9em; }
+div#words li { width: 40px; height: 4em; padding-top: 2px; text-align: center; float: left; position: relative; border-bottom: 1px solid #ccc; }
+div#words li strong { display: block; position: absolute; bottom: -2.1em; left: -2px; width: 100%; height: 2em; line-height: 2em; font-weight: normal; }
+div#words li a { display: block; height: 100%; width: 1.5em; bottom: 0; position: relative; text-decoration: none; color: #444; background: none; }
+div#words li a span.count { display: block; width: 30px; height: 100%; position: absolute; bottom: 0; left: 0; margin: 0 .2em; overflow: hidden; font-weight: bold; background: #ddd; -webkit-border-top-left-radius: 3px; -webkit-border-top-right-radius: 3px; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.25); }
+div#words li a:hover span.count { background: #cc0000 !important; color: #fff; font-weight: bold; }
+div#words li a span.words { position: absolute; bottom: 3px; left: 6px; z-index: 3; }
+div#controls { clear: both; padding-top: 1em; text-align: center; }
+div#controls button { margin: 0 1em; }
+
+.glance iframe { width: 500px; height: 300px; margin: 0; padding: 0; border: 0; outline: 0; background: #fff; }
+.clear { clear: both; width: 0; height: 0; }
+
+div#print-logo, span.archive { display: none; }
+
+
+
+/* Defaults
+-------------------------------------------------------------- */
+
+/* Reset all browser defaults, borrowed from YUI */
+@import "reset.css";
+
+/* Create default grid */
+@import "grid.css";
+
+/* Create reasonable, default type */
+@import "type.css";
+
+
+
+
+/* New styles!
+-------------------------------------------------------------- */
+img { border: 0; }
+
+.wrap { margin: 0 auto; padding: 2em 0 2em; width: 830px; border-top: 1px solid #ddd; }
+.number { font-family: Georgia, serif; }
+.quiet { color: #ccc; font-size: .75rem; }
+
+.footer { color: #999; text-align: center; }
+.footer a { color: #666; text-decoration: none; }
+.footer a:hover { background-color: transparent; color: #000; }
+
+.icon { padding: 0 1.5em; }
+.icon a { padding-left: 1.5em; background-position: left center; background-repeat: no-repeat; }
+.icon-rss a { background-image: url(../img/rss.png); }
+.icon-twitter a { background-image: url(../img/twitter.png); }
+
+.clearfix:before, .clearfix:after { display: table; content: " "; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+
+
+
+
+
+
+
+/* Print
+-------------------------------------------------------------- */
+@media print {
+
+    /* Prepare major content blocks for printing */
+    html, body, div#page, div#header-wrap, div#header, div#maincontent-wrap, div#maincontent, .footer { margin: 0 !important; padding: 0 !important; width: 100% !important; float: none !important; font-family: georgia, times, "times new roman", serif; font-size: 12pt; line-height: 20pt; }
+    
+    /* Hide all elements unnecessary from printing */
+    div#navigation, span#print, span#small, span#medium, span#big, .hide, #previous, #next, div#map-detail, p.access, .screen, div.street, div.sidebar, .rss { display: none; }
+    
+    /* Having an image-based logo hidden in the screen CSS and then revealed in the print CSS is nice, but I'll make do with the original text, so I'll set the logo to hide */
+    div#print-logo { display: none !important; width: 178px; margin: 0 auto; }
+    
+    /* Text */
+    h1, h2, h3, h4, p { margin: 0; padding: 0; font-weight: normal; }
+    acronym, abbr { text-decoration: none; }
+    div#header h1 { margin: 6pt 0 6pt 0; font-size: 20pt; text-align: center !important; color: black; text-indent: 0; }
+    div#header h1 span.letter { color: cmyk(0.0, 1.0, 1.0, 0.2); color: rgb(204, 0, 0); }
+    h2 { font-size: 10pt; font-style: italic; color: #666; text-align: center; }
+    h3 { margin: 6pt 0; font-size: 24pt; line-height: 30pt; color: black; }
+    h4 { margin: 6pt 0; padding: 0; font-size: 14pt; color: #333; }
+    p#date { margin: 4pt 0; padding: 1pt 0; border-top: 1pt solid #ccc; border-bottom: 1pt solid #ccc; text-align: center; font-size: 10pt; color: #444; }
+    div#article p { margin: 0 0 4pt 0; padding: 0; line-height: 16pt; text-indent: 1em; color: black; }
+    div#article a[href]:after { content: " (" attr(href) ")"; }
+    p.author, p.contributors { margin: 4pt 0 6pt; font-style: italic; color: #666; font-size: 8pt; line-height: 12pt; }
+    p.author .name { font-style: normal; font-weight: bold; text-transform: uppercase; letter-spacing: 1pt; font-family: helvetica, arial, sans-serif; padding-left: 3pt; }
+    ul { margin: 0 0 1em 0; padding: 0; }
+    li { margin: 0 0 0 1.25em; padding: 0; }
+    ul li { list-style: square; }
+    ol li { list-style: decimal; }
+    span.clincher { color: cmyk(0.0, 1.0, 1.0, 0.2); color: rgb(204, 0, 0); padding: 0 0 3pt 3pt; font-size: 12pt; }
+    p.url { margin: 12pt 0 6pt; padding: 3pt; font-size: 10pt; line-height: 16pt; font-style: italic; background-color: #eee; }
+    thead { display: table-header-group; }
+    
+    /* Links */
+    a { color: black; font-weight: bold; font-size: 90%; text-decoration: none; }
+    div#header h1 a, p#date a, .footer a, p.url a { font-size: 100%; font-weight: normal; text-decoration: none; }
+    
+    /* Sidebar */
+    div.photo { float: right; margin: 6pt 0 6pt 16pt; padding: 0 0 6pt; border-bottom: 1px solid #ccc; }
+    div.photo img { display: block; border: 1px solid #666; margin: 0 0 3pt; }
+    div.photo p.caption { font-family: helvetica, arial, sans-serif; font-size: 8pt; line-height: 12pt; }
+    
+    /* Footer */
+    .footer { border-top: 1pt solid #ccc; }
+    .footer p { margin-top: 6pt; font-size: 8pt; color: rgb(220, 220, 220); }
+
+}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load markup %}
+{% load typogrify_tags %}
+{% load email %}
+
+{% block style %}
+<style type="text/css">
+{% regroup article_list by publication as publication_list %}{% for publication in publication_list %}div#map{{ publication.grouper.id }} { width: 415px; height: 550px; border: 1px solid #aaa; }
+div#map{{ publication.grouper.id }} div span { display: none; }
+div#map{{ publication.grouper.id }} div span.info { display: block; }
+{% endfor %}
+</style>
+{% endblock %}
+
+{% block script %}
+<script src="{{ STATIC_URL }}js/markermanager.js">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+
+$(document).ready(function() {
+  {% regroup article_list by publication as publication_list %}{% for publication in publication_list %}$(drawPublicationMap("map{{ publication.grouper.id }}", "{{ publication.grouper.slug }}"));
+  {% endfor %}
+  $("div#navigation ul li#home a, div#navigation ul li#about a").hover(function(){
+    $(this).animate({ backgroundColor: "#cc0000", color: "#ffffff" }, 200);
+  }, function(){
+    $(this).animate({ backgroundColor: "#ffffff", color: "#444" }, 200);
+  });
+});
+
+$(document).unload(function(){ GUnload(); });
+
+//--><!]]></script>
+
+{% endblock %}
+
+{% block title %}Articles &#8226; {% endblock %}
+{% block body %}body-articles{% endblock %}
+
+{% block maincontent %}
+{% filter typogrify %}
+<h3 class="section">Articles</h3>
+
+{% regroup article_list by publication as publication_list %}
+{% for publication in publication_list %}
+
+<h4 id="{{ publication.grouper.slug }}"><a href="#{{ publication.grouper.slug }}">{{ publication.grouper.name }}{% if publication.grouper.url %}</a>{% endif %}{% if publication.grouper.city and publication.grouper.state %} <span class="location">{{ publication.grouper.city }}, {{ publication.grouper.state }}</span>{% endif %}{% if publication.grouper.city and not publication.grouper.state %}<span class="location">{{ publication.grouper.city }}</span>{% endif %}</h4>
+
+<div class="info">
+<div class="map-box"><div id="map{{ publication.grouper.id }}"><noscript><p>Please turn on Javascript to view this interactive map.</p></noscript></div></div>
+</div>
+
+<div class="articles">
+
+{{ publication.grouper.description|markdown }}
+
+<p>I have written <strong>{{ publication.list|length }}</strong> articles for {{ publication.grouper.name }}:</p>
+
+<ul>
+{% for article in publication.list %}
+<li><span class="date">{{ article.date|date:"m/d/y" }}</span> <span class="headline"><a href="{{ article.get_absolute_url }}">{{ article.headline }}</a></span></li>
+{% endfor %}
+</ul>
+</div>
+
+{% endfor %}
+
+{% endfilter %}
+{% endblock %}

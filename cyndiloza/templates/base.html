@@ -1,0 +1,121 @@
+{% autoescape off %}
+{% load url from future %}
+{% load typogrify_tags %}
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block name %}{% block title %}{% endblock %}Cyndi Loza{% endblock %}</title>
+    {# <meta name="viewport" content="width=device-width, initial-scale=1"> #}
+    
+    <meta name="description" content="{% block description %}Cyndi Loza is an associate editor and journalist in Chicago. She edits for Guerrero Howe Custom Media and wrote for the Chicago Sun Times.{% endblock %}">
+
+    <meta name="author" content="{{ site.name }}">
+    <meta name="copyright" content="Copyright (c) {% now "Y" %} {{ site.name }}">
+    <meta name="robots" content="index, follow, archive">
+    <meta name="apple-mobile-web-app-title" content="{{ site.name }}">
+    
+    <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}img/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}img/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}img/apple-touch-icon-72.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}img/apple-touch-icon.png">
+
+    {% block css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+    {% endblock %}
+
+    {% block feeds %}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}'s articles" href="{% url 'articles_article_feed' %}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}'s places" href="{% url 'articles_place_feed' %}">
+    {% endblock %}
+
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+<div id="page">
+
+{# <div id="promo-wrap"><div id="promo">{% block promo %}{% endblock %}</div></div> #}
+
+{% block header %}
+{% filter typogrify %}
+<div id="header-wrap">
+<div id="header">
+<h1><a href="{% url 'home' %}">Cyndi <span class="letter">L</span>oza</a></h1>
+<h2>A journalist's portfolio</h2>
+<p class="access"><a href="#maincontent">Skip navigation</a></p>
+</div>
+</div>
+{% endfilter %}
+{% endblock %}
+
+{% block navigation %}
+{% filter typogrify %}
+<div id="navigation-wrap">
+<div id="navigation">
+<h3>Navigation</h3>
+<ul>
+<li class="home"><a href="{% url 'home' %}" class="hover">Home</a></li>
+<li class="about"><a href="{% url 'about_about_detail' %}" class="hover">About</a></li>
+<li class="articles"><a href="{% url 'news_article_list' %}" class="hover">Articles</a></li>
+<li class="places"><a href="{% url 'places_place_list' %}" class="hover">Places</a></li>
+</ul>
+</div>
+</div>
+{% endfilter %}
+{% endblock %}
+
+{% block date %}{% endblock %}
+
+{% block map %}{% endblock %}
+
+<div class="clearfix">
+<div id="maincontent-wrap">
+<div id="maincontent">
+{% block maincontent %}{% endblock %}
+</div>
+</div>
+</div>
+
+{% block about %}{% endblock %}
+
+{% block footer %}
+{% filter typogrify %}
+<div class="wrap clearfix">
+    <footer class="footer">
+            <p>&#169; <span class="number">{% now "Y" %}</span> <a href="{% url "home" %}">{{ site.name }}</a>. Website design by <a href="http://richardcornish.com">Richard Cornish</a>. <span class="icon icon-rss"><a href="{% url "articles_article_feed" %}" rel="nofollow">RSS feed</a></span> <span class="icon icon-twitter"><a href="http://twitter.com/cloza/">@cloza</a></span></p>
+            <div class="quiet">
+                <p>Articles are copyright of their respective publications.</p>
+            </div>
+    </footer>
+</div>
+{% endfilter %}
+{% endblock %}
+
+</div>
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAivetzV_dDCXqfRzkwu4dwhRzZVTaG9eRMaThsfivWtmyKVkBHxSKawR92q1ViFQCLi-77tOZpV7D3A&amp;sensor=false"></script>
+{# <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA7LoYcP-DZRBl1k5kvWtii8Zk7Uk99xWU&amp;sensor=false"></script> #}
+<script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.color.js"></script>
+<script src="{{ STATIC_URL }}js/site.js"></script>
+<script src="{{ STATIC_URL }}js/map.js"></script>
+{% block script %}
+{% endblock %}
+
+<script>
+    var _gaq=[['_setAccount','UA-3883074-1'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>{% endautoescape %}

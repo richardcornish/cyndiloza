@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load markup humanize typogrify_tags partition %}
+
+
+{% block title %}Articles &#8226; {% endblock %}
+
+{% block body_class %}articles{% endblock %}
+
+{% block maincontent %}
+{% filter typogrify %}
+<h3 class="section">Articles</h3>
+
+{% regroup article_list|dictsort:"publication.rank" by publication as publication_list %}
+{% for publication in publication_list %}
+
+<h4 id="{{ publication.grouper.slug }}"><a href="#{{ publication.grouper.slug }}">{{ publication.grouper.name }}{% if publication.grouper.url %}</a>{% endif %}{% if publication.grouper.place.city and publication.grouper.place.state %} <span class="location">{{ publication.grouper.place.city }}, {{ publication.grouper.place.state }}</span>{% endif %}{% if publication.grouper.place.city and not publication.grouper.place.state %}<span class="location">{{ publication.grouper.place.city }}</span>{% endif %}</h4>
+
+{% if publication.grouper.place.latitude and publication.grouper.place.longitude %}
+<div id="{{ publication.grouper.place.slug }}-map" class="glance publication-map">
+<a href="http://maps.google.com/maps?ll={{ publication.grouper.place.latitude }},{{ publication.grouper.place.longitude }}&amp;t=p&amp;z=8"><img src="http://maps.google.com/staticmap?center={{ publication.grouper.place.latitude }},{{ publication.grouper.place.longitude }}&amp;zoom=8&amp;size=400x190&amp;maptype=terrain&amp;key=ABQIAAAAivetzV_dDCXqfRzkwu4dwhRzZVTaG9eRMaThsfivWtmyKVkBHxSKawR92q1ViFQCLi-77tOZpV7D3A" width="400" height="190" alt="{% if publication.grouper.place.city and publication.grouper.place.slug %}Map of {{ publication.grouper.place.city }}, {{ publication.grouper.place.state }}{% endif %}" /></a>
+</div>
+{% endif %}
+
+<div class="articles">
+
+{% comment %}
+{% if publication.grouper.logo %}
+{% with publication.grouper.logo as logo %}
+{% thumbnail logo "200x150" as thumb %}
+<div class="logo">{% if publication.grouper.url %}<a href="{{ publication.grouper.url }}">{% endif %}<img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{ publication.grouper.name }} logo" />{% if publication.grouper.url %}</a>{% endif %}</div>
+{% endthumbnail %}
+{% endwith %}
+{% endif %}
+{% endcomment %}
+
+<div class="description">{{ publication.grouper.description|markdown }}
+
+<p>I have written <strong>{{ publication.list|length }} article{{ publication.list|pluralize }}</strong>
+
+{# Fucking Django bug... #}
+
+{% comment %}
+in {% with publication.list|last as oldest %}
+{% with publication.list|first as newest %}
+<strong>{{ newest.date|timesince:oldest.date }}</strong>
+{% endwith %}{% endwith %}
+{% endcomment %}
+
+for&nbsp;{{ publication.grouper.name }}{% if publication.grouper.circulation %}, whose circulation is&nbsp;<strong>{{ publication.grouper.circulation|intcomma }}</strong>{% endif %}:</p>
+
+</div>
+
+{% for column in publication.list|rows:2 %}
+<ul class="{% cycle first,last %}">
+{% for article in column %}
+<li><span class="date">{{ article.date|date:"m/d/y" }}</span>
+{% if article.featured %}<strong>{% endif %}
+<span class="headline"><a href="{{ article.get_absolute_url }}">{{ article.headline }}</a></span>
+{% if article.featured %}</strong>{% endif %}
+</li>
+{% endfor %}
+</ul>
+{% endfor %}
+</div>
+
+{% endfor %}
+
+{% endfilter %}
+{% endblock %}

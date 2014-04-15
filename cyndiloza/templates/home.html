@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% load markup humanize typogrify_tags thumbnail %}
+
+
+{% block script %}
+<script src="{{ STATIC_URL }}js/home.js"></script>
+<script>
+$(function(){
+
+    // Chart variables to be passed to drawChart() function:
+    // An array of the number of articles written for each publication
+    {% regroup article_list|dictsort:"publication.name" by publication as publication_list %}var valueArray = new Array({% for publication in publication_list %}"{{ publication.list|length }}"{% if not forloop.last %}, {% endif %}{% endfor %});    
+    // Assign labels to pie chart sections
+    var chartLabels = "{% for publication in publication_list %}{{ publication.grouper.name }}{% if not forloop.last %}|{% endif %}{% endfor %}";
+    $(drawChart(valueArray, chartLabels));
+    
+    // Make an unordered list of percentages because I'm too stupid to do it in Python
+    {% for publication in publication_list %}
+    var publication_{{ forloop.counter }} = {{ publication.list|length }};
+    var percentage_{{ forloop.counter }} = publication_{{ forloop.counter }} / ({% for publication in publication_list %}{{ publication.list|length }}{% if not forloop.last %} + {% endif %}{% endfor %}) * 100;
+    var item_{{ forloop.counter }} = '<li><strong>' + Math.round(percentage_{{ forloop.counter }}) + '%</strong> <a href="/articles/#{{ publication.grouper.slug }}">{{ publication.grouper.name }}</a></li>';
+    {% endfor %}
+    var list = '<ul>' + {% for publication in publication_list %}item_{{ forloop.counter }}{% if not forloop.last %} + {% endif %}{% endfor %} + '</ul>';
+    $("div#pies h3").after(list);
+
+});
+</script>
+{% endblock %}
+
+{% block name %}{% filter typogrify %}{{ block.super }} &#8226; Portfolio of an associate editor and journalist in Chicago{% endfilter %}{% endblock %}
+
+{% block body_class %}home{% endblock %}
+
+{% block extra_head %}<meta name="apple-itunes-app" content="app-id=352262775">{% endblock %}
+
+{% block maincontent %}
+{% filter typogrify %}
+
+<div id="bio">
+{{ about.blurb|markdown }}
+</div>
+
+<div id="lead">
+<h3>Featured article</h3>
+{% for favorite_list in favorite_list|slice:"0:1" %}
+{% for favorite in favorite_list.favorite_set.all|slice:"0:1" %}
+{% with favorite.article as favorite %}
+
+{% if favorite.photo %}
+<div class="art">
+<div class="photo">
+{% thumbnail favorite.photo "400x300" as thumb %}
+<a href="{{ favorite.get_absolute_url }}"{% if favorite.caption %} title="{{ favorite.caption|markdown|striptags|smartypants|fix_ampersands|truncatewords:"15" }}"{% endif %}><img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{% if favorite.caption %}{{ favorite.caption|markdown|striptags|smartypants|fix_ampersands }}{% else %}Photo{% endif %}" /></a>
+{% endthumbnail %}
+</div>
+</div>
+{% endif %}
+
+<div class="text">
+<h4><a href="{{ favorite.get_absolute_url }}">{{ favorite.headline }}</a></h4>
+{% if featured.summary %}{{ favorite.summary|markdown }}{% else %}<p>{{ favorite.body|markdown|striptags|fix_ampersands|truncatewords:"60" }}</p>{% endif %}
+<p class="jump"><a href="{{ favorite.get_absolute_url }}">Read featured article</a></p>
+</div>
+
+<div class="clear"></div>
+
+{% endwith %}
+{% endfor %}
+{% endfor %}
+</div>
+
+{% comment %} The Prom is over! {% endcomment %}
+{% comment %}
+<div id="prom">
+<h3 id="prom-header">Proms around Reno</h3>
+<div id="map_prom"><noscript><p>Please turn on Javascript to view this interactive map.</p></noscript></div>
+<div id="sidebar_html"><noscript><p>Please turn on Javascript to view this interactive content.</p></noscript></div>
+</div>
+<div class="clear"></div>
+{% endcomment %}
+{% endfilter %}
+
+{% if favorite_list %}
+<div id="favorite" class="box">
+{% for favorite_list in favorite_list|slice:"0:1" %}
+<h3>{{ favorite_list.title|typogrify }}</h3>
+  {% for favorite in favorite_list.favorite_set.all|slice:"1:" %}
+  {% with favorite.article as article %}
+  {% thumbnail article.photo "100x75" as favorite_thumb %}
+  <dl class="{% cycle 'one' 'two' %}">
+  <dt><a href="{{ article.get_absolute_url }}">{{ article.headline|typogrify }}</a></dt>
+  {% if article.photo %}<dd class="photo"><a href="{{ article.get_absolute_url }}"><img src="{{ favorite_thumb.url }}" width="{{ favorite_thumb.width }}" height="{{ favorite_thumb.height }}" alt="{% if article.caption %}{{ article.caption|markdown|striptags|smartypants|fix_ampersands }}{% else %}&#8220;{{ article.headline }}&#8221; thumbnail photo{% endif %}" /></a></dd>{% endif %}
+  <dd>{% if article.summary %}{{ article.summary|markdown|striptags|typogrify }}{% else %}{{ article.body|markdown|striptags|truncatewords:"20"|typogrify }}{% endif %}</dd>
+  <dd><a href="{{ article.get_absolute_url }}">Read the article</a></dd>
+  </dl>
+  {% endthumbnail %}
+  {% endwith %}
+  {% endfor %}
+{% endfor %}
+</div>
+<div class="clear"></div>
+{% endif %}
+
+<div class="box">
+<div id="latest">
+<h3>Latest articles</h3>
+<dl class="bigTarget">
+{% for latest in latest_list %}
+<dt><a href="{{ latest.get_absolute_url }}">{{ latest.headline|typogrify }}</a></dt>
+{% thumbnail latest.photo "100x75" as latest_thumb %}
+{% if latest.photo %}<dd class="photo"><a href="{{ latest.get_absolute_url }}"><img src="{{ latest_thumb.url }}" width="{{ latest_thumb.width }}" height="{{ latest_thumb.height }}" alt="{% if latest.caption %}{{ latest.caption|markdown|striptags|smartypants|fix_ampersands }}{% else %}&#8220;{{ latest.headline }}&#8221; thumbnail photo{% endif %}" /></a></dd>{% endif %}
+{% endthumbnail %}
+<dd>{% if latest.summary %}{{ latest.summary|markdown|striptags|typogrify }}{% else %}{{ latest.body|markdown|striptags|truncatewords:"20"|typogrify }}{% endif %}</dd>
+<dd><a href="{{ latest.get_absolute_url }}">Read the article</a></dd>
+{% endfor %}
+</dl>
+<p><a href="/articles/">Read more articles</a></p>
+</div>
+<div id="pies">
+<h3>By the publication</h3>
+<a href="/articles/"><img id="chart" src="http://chart.apis.google.com/chart?" alt="Articles by publication pie chart" /></a>
+</div>
+</div>
+
+<div class="clear"></div>
+
+{% filter typogrify %}
+<div id="words" class="box">
+<h3>By the words</h3>
+<p>The articles I've written displayed by word count. <span id="headline"></span></p>
+<p id="key"><span class="plain">Article with no art</span> / <span class="art">Article with art</span></p>
+<ul>
+{% for article in word_list %}
+<li><strong>{{ article.date|date:"n/j" }}</strong> <a href="{{ article.get_absolute_url }}" title="{{ article.headline|smartypants|fix_ampersands }}"><span class="count" style="height: {% widthratio article.body|wordcount 400 100 %}px; {% if article.photo or article.street %}background: #aaa;{% endif %}"><span class="words">{{ article.body|wordcount }}</span> <span class="hide">words</span></span></a></li>
+{% endfor %}
+</ul>
+</div>
+
+{% endfilter %}
+{% endblock %}

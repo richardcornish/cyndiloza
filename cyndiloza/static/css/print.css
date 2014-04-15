@@ -1,0 +1,42 @@
+/* Prepare major content blocks for printing */
+html, body, div#page, div#header-wrap, div#header, div#maincontent-wrap, div#maincontent, div#footer-wrap, div#footer { margin: 0 !important; padding: 0 !important; width: 100% !important; float: none !important; font-family: georgia, times, "times new roman", serif; font-size: 12pt; line-height: 20pt; }
+
+/* Hide all elements unnecessary from printing */
+div#navigation, span#print, span#small, span#medium, span#big, .hide, #previous, #next, div#map-detail, p.access, .screen, div.street, div.sidebar, div#footer a#rss { display: none; }
+
+/* Having an image-based logo hidden in the screen CSS and then revealed in the print CSS is nice, but I'll make do with the original text, so I'll set the logo to hide */
+div#print-logo { display: none !important; width: 178px; margin: 0 auto; }
+
+/* Text */
+h1, h2, h3, h4, p { margin: 0; padding: 0; font-weight: normal; }
+acronym, abbr { text-decoration: none; }
+div#header h1 { margin: 0 0 6pt 0; font-size: 20pt; text-align: center; color: black; }
+div#header h1 span.letter { color: cmyk(0.0, 1.0, 1.0, 0.2); color: rgb(204, 0, 0); }
+h2 { font-size: 10pt; font-style: italic; color: #666; text-align: center; }
+h3 { margin: 6pt 0; font-size: 24pt; line-height: 30pt; color: black; }
+h4 { margin: 6pt 0; padding: 0; font-size: 14pt; color: #333; }
+p#date { margin: 4pt 0; padding: 1pt 0; border-top: 1pt solid #ccc; border-bottom: 1pt solid #ccc; text-align: center; font-size: 10pt; color: #444; }
+div#article p { margin: 0 0 4pt 0; padding: 0; line-height: 16pt; text-indent: 1em; color: black; }
+div#article a[href]:after { content: " (" attr(href) ")"; }
+p.author, p.contributors { margin: 4pt 0 6pt; font-style: italic; color: #666; font-size: 8pt; line-height: 12pt; }
+p.author .name { font-style: normal; font-weight: bold; text-transform: uppercase; letter-spacing: 1pt; font-family: helvetica, arial, sans-serif; padding-left: 3pt; }
+ul { margin: 0 0 1em 0; padding: 0; }
+li { margin: 0 0 0 1.25em; padding: 0; }
+ul li { list-style: square; }
+ol li { list-style: decimal; }
+span.clincher { color: cmyk(0.0, 1.0, 1.0, 0.2); color: rgb(204, 0, 0); padding: 0 0 3pt 3pt; font-size: 12pt; }
+p.url { margin: 12pt 0 6pt; padding: 3pt; font-size: 10pt; line-height: 16pt; font-style: italic; background-color: #eee; }
+thead { display: table-header-group; }
+
+/* Links */
+a { color: black; font-weight: bold; font-size: 90%; text-decoration: none; }
+div#header h1 a, p#date a, div#footer a, p.url a { font-size: 100%; font-weight: normal; text-decoration: none; }
+
+/* Sidebar */
+div.photo { float: right; margin: 6pt 0 6pt 16pt; padding: 0 0 6pt; border-bottom: 1px solid #ccc; }
+div.photo img { display: block; border: 1px solid #666; margin: 0 0 3pt; }
+div.photo p.caption { font-family: helvetica, arial, sans-serif; font-size: 8pt; line-height: 12pt; }
+
+/* Footer */
+div#footer { border-top: 1pt solid #ccc; }
+div#footer p { margin-top: 6pt; font-size: 8pt; color: rgb(220, 220, 220); text-align: center; }

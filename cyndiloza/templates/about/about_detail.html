@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load markup typogrify_tags thumbnail email %}
+
+
+{% block title %}About &#8226; {% endblock %}
+
+{% block body_class %}about{% endblock %}
+
+{% block script %}
+<script>
+$(function () {
+    email('{{ about.user.email|encode_string }}');
+});
+</script>
+{% endblock %}
+
+{% block maincontent %}
+{% filter typogrify %}
+
+<h3>About me</h3>
+
+<div class="glance">
+
+{% if about.photo %}
+{% thumbnail about.photo "400x500" as thumb %}
+<div class="photo"><div class="image"><img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="Photo of myself" /></div>{% if about.caption %}<p class="caption">{{ about.caption }}</p>
+{% endif %}
+</div>
+{% endthumbnail %}
+{% endif %}
+
+{% if about.resume %}
+<div class="download">
+  <p><a href="{{ MEDIA_URL }}{{ about.resume }}">Download my r&#233;sum&#233;</a></p>
+</div>
+{% thumbnail about.resume 400x300 as thumb %}
+<div class="photo">
+  <div class="image">
+    <!-- Google Docs PDF viewier: --> <iframe src="http://docs.google.com/gview?url={{ MEDIA_URL }}{{ about.resume }}&amp;embedded=true" frameborder="0" style="width: 400px; height: 500px;"></iframe>
+    {% comment %}
+    PDF Me Not script: <script type="text/javascript" src="http://pdfmenot.com/embed/?url=&amp;width=400&amp;height=500"></script> -->
+    Mogrified image: <a href="{{ MEDIA_URL }}{{ about.resume }}"><img src="{{ thumb }}" alt="R&#233;sum&#233;" /></a>
+    {% endcomment %}
+  </div>
+</div>
+{% endthumbnail %}
+{% endif %}
+
+</div>
+
+<div id="article">
+
+{{ about.body|markdown }}
+
+</div>
+
+{% endfilter %}
+{% endblock %}

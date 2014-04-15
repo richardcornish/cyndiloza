@@ -1,0 +1,10 @@
+{% autoescape off %}{% load markup %}{% load typogrify_tags %}<?xml version="1.0" encoding="UTF-8"?>
+<markers>
+  {% spaceless %}
+  {% for article in publication.article_set.published %}
+  {% if article.place.latitude %}
+  <marker lat="{{ article.place.latitude }}" lng="{{ article.place.longitude }}" headline="{{ article.headline|smartypants|fix_ampersands }}" summary="{% if article.summary %}{{ article.summary|smartypants|fix_ampersands }}{% else %}{{ article.body|markdown|striptags|smartypants|fix_ampersands|truncatewords:"20" }}{% endif %}" url="{{ article.get_absolute_url }}" />
+  {% endif %}
+  {% endfor %}
+  {% endspaceless %}
+</markers>{% endautoescape %}

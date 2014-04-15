@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% load markup typogrify_tags thumbnail %}
+
+
+{% block style %}
+<style>
+  div#map { height: 250px; }
+</style>
+{% endblock %}
+
+{% block title %}{{ place.name|smartypants|fix_ampersands }} &#8226; {% endblock %}
+
+{% block body_class %}places{% endblock %}
+
+{% block maincontent %}
+{% filter typogrify %}
+
+<div id="story">
+
+<h3>{{ place.name }}</h3>
+
+{% if place.address or place.city or place.state or place.zipcode %}<p id="date">{% if place.latitude and place.longitude %}<a href="http://maps.google.com/maps?ll={{ place.latitude }},{{ place.longitude }}&amp;t=h&amp;z=17">{% endif %}{% if place.address %}{{ place.address }}, {% endif %}{% if place.city %}{{ place.city }}, {% endif %}{% if place.state %}{{ place.state }}{% endif %}{% if place.zipcode %} <span class="number">{{ place.zipcode }}</span>{% endif %}{% if place.latitude and place.longitude %}</a>{% endif %}</p>{% endif %}
+
+{% if place.url %}<p><a href="{{ place.url }}"><strong>{{ place.website }}</strong></a></p>{% endif %}
+
+{% endfilter %}
+
+<div class="glance">
+{% if place.photo %}
+{% thumbnail place.photo "400x300" as thumb %}
+<div class="photo">
+<div class="image">{% if place.photo_url %}<a href="{{ place.photo_url }}">{% endif %}<img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{ place.name|smartypants|escape }} photo" />{% if place.photo_url %}</a>{% endif %}</div>
+{% if place.photographer %}<p class="author" style="width: {{ thumb.width }}px">{% if place.photo_url %}<a href="{{ place.photo_url|escape }}">{% endif %}Photo{% if place.photo_url %}</a>{% endif %}{% if place.photographer_url %} by <span class="name">{% if place.photographer_url %}<a href="{{ place.photographer_url|escape }}">{% endif %}{{ place.photographer|typogrify }}{% if place.photographer_url %}</a>{% endif %}</span>{% endif %}</p>{% endif %}
+</div>
+{% endthumbnail %}
+{% endif %}
+
+<div class="photo" id="map"><noscript><p>Please turn on JavaScript to view this interactive map.</p></noscript></div>
+
+{% if place.street %}<div class="street"><iframe width="500" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{{ place.street }}"></iframe></div>{% endif %}
+
+{# {% else %}{% if place.address and place.city and place.state %}<div class="street" id="pano"></div>{% endif %} #}
+
+</div>
+
+{% filter typogrify %}
+
+<div id="article">
+
+{% if place.description %}
+{{ place.description|markdown }}
+{% endif %}
+
+<p>I have written <strong>{{ place.article_set.all|length }} article{{ place.article_set.all.count|pluralize }}</strong> at <strong>{{ place.name }}</strong>.</p>
+
+<ul>
+{% for article in place.article_set.all %}
+<li><a href="{{ article.get_absolute_url }}">{{ article.headline }}</a></li>
+{% endfor %}
+</ul>
+
+<p><a href="{% url "articles_place_by_article_feed" place.slug %}">RSS feed for {{ place.name }}</a></p>
+
+</div>
+
+</div>
+
+{% endfilter %}
+{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function() {
+  {% if place.latitude and place.longitude %}// Load the GoogleMap
+  $(drawMap("{{ place.address }}, {{ place.city }}, {{ place.state }}", "{{ place.latitude }}", "{{ place.longitude }}"{% if place.article_set.all.maptype %}, {{ place.article_set.all.maptype }}{% else %}, G_PHYSICAL_MAP{% endif %}));{% endif %}
+});
+</script>
+{% endblock %}
