@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'robots',
     'typogrify',
+    'south',
 )
 
 
