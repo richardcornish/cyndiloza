@@ -8,9 +8,10 @@ import os, xmlrpclib
 Fabric "fab" file for deploying to WebFaction web host
 
 Prerequisites on Webfaction box:
+- environment variables in ~/.bash_profile
 - pip, virtualenv, virtualenvwrapper
 - creation of a virtual environment
-- environment variables in ~/.bash_profile
+- installation of South in installed apps
 
 Usage:
 - `fab setup`
@@ -129,13 +130,13 @@ def restart_server():
 
 def check_website():
     """
-    Checks that the website returns an HTTP 200 status code
+    Checks that the website returns an HTTP status code of 200
     """
     print('Checking website...')
-    if not '200 OK' in local('curl --silent -I "http://%s"' % env.website_url, capture=True):
-        print(red('\nDude, the website is down!'))
-    else:
+    if '200 OK' in local('curl --silent -I "http://%s"' % env.website_url, capture=True):
         print(green('\nWay to go, Ace!'))
+    else:
+        print(red('\nDude, the website is down!'))
 
 
 def deploy():
@@ -209,7 +210,15 @@ def setup_repo():
     Downloads Django project from Git repository for the first time
     """
     with cd(env.django_root):
-        run('git clone %s %s' % (env.repo, env.django_root))
+        run('git clone %s %s' % (env.repo, env.project))
+
+
+def chmod_manage():
+    """
+    Change mode of manage.py to execute
+    """
+    with cd(env.project_root):
+        run('chmod +x manage.py')
 
 
 def setup_database():
@@ -227,6 +236,7 @@ def setup():
     """
     setup_webfaction()
     setup_repo()
+    chmod_manage()
     install_reqs()
     setup_database()
     collect_static()
