@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-CONFIGURATION_ROOT = BASE_DIR
-PROJECT_ROOT = os.path.join(CONFIGURATION_ROOT, os.pardir)
+PROJECT_ROOT = BASE_DIR
 REPOSITORY_ROOT = os.path.join(PROJECT_ROOT, os.pardir)
 
 
@@ -158,3 +157,8 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
+
+
+# Project-specific settings
+
+REMOVE_WWW = True
