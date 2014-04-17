@@ -7,7 +7,7 @@ South==0.8.4
 -e git+https://github.com/django/django-localflavor.git@509fdbead774657770cc1a6e5e42058470d3aac5#egg=django_localflavor-master
 django-robots==1.0
 ecdsa==0.11
-paramiko==1.13.0
+paramiko==1.12.3
 pycrypto==2.6.1
 python-memcached==1.53
 six==1.6.1
