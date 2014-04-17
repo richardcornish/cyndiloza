@@ -10,7 +10,7 @@ DEBUG = False
 TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = [
-    '.cyndiloza'
+    '.cyndiloza.com'
 ]
 
 MEDIA_ROOT = '/home/richardcornish/webapps/cyndiloza_assets/media/'
