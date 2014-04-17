@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, url, include
 from django.contrib.sitemaps import GenericSitemap, FlatPageSitemap
-from cyndiloza.news.models import Article
-from cyndiloza.news.models import Place
+
+from cyndiloza.apps.news.models import Article
+from cyndiloza.apps.news.models import Place
 
 
 article_dict = {

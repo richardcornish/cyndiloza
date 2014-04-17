@@ -27,8 +27,6 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
-
 SITE_ID = 1
 
 
@@ -48,17 +46,16 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.flatpages',
     'django.contrib.humanize',
-    'django.contrib.markup',
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'django.contrib.syndication',
 
     # Personal apps
-    'cyndiloza.about',
-    'cyndiloza.news',
-    'cyndiloza.people',
-    'cyndiloza.places',
-    'cyndiloza.templatetags',
+    'cyndiloza.apps.about',
+    'cyndiloza.apps.news',
+    'cyndiloza.apps.people',
+    'cyndiloza.apps.places',
+    'cyndiloza.apps.utils',
 
     # Third-party apps
     'robots',
@@ -81,8 +78,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # No "www"
-    'cyndiloza.middleware.no_www.UrlMiddleware',
+    # Remove "www"
+    'cyndiloza.middleware.remove_www.UrlMiddleware',
 
     # Flatpage fallback
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
@@ -151,7 +148,7 @@ TEMPLATE_LOADERS = (
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 TEMPLATE_CONTEXT_PROCESSORS += (
-    'cyndiloza.context_processors.site.get_site',
+    'cyndiloza.apps.utils.context_processors.site',
 )
 
 TEMPLATE_DIRS = (

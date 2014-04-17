@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
 
-from cyndiloza.news.models import *
+from cyndiloza.apps.news.models import *
 
 
 class PublicationOptions(admin.ModelAdmin):

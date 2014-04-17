@@ -1,7 +1,7 @@
 from django import forms
-from django.contrib.localflavor.us.forms import USZipCodeField
+from localflavor.us.forms import USZipCodeField
 
-from cyndiloza.places.models import Place
+from cyndiloza.apps.places.models import Place
 
 
 class PlaceForm(forms.ModelForm):

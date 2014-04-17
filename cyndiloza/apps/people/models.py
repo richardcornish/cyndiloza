@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.localflavor.us.models import PhoneNumberField
+from localflavor.us.models import PhoneNumberField
 
-from cyndiloza.places.models import Place
+from cyndiloza.apps.places.models import Place
 
 
 class Person(models.Model):

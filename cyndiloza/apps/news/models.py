@@ -1,11 +1,10 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
 
-from cyndiloza.news import managers
-from cyndiloza.places.models import Place
-from cyndiloza.people.models import Person
+from cyndiloza.apps.news import managers
+from cyndiloza.apps.places.models import Place
+from cyndiloza.apps.people.models import Person
 
 
 class Author(models.Model):

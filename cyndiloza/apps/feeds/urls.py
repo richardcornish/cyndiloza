@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url, include
-from cyndiloza.feeds.articles import ArticlesFeed
-from cyndiloza.feeds.places import PlacesFeed, PlacesByArticleFeed
+
+from cyndiloza.apps.feeds.articles import ArticlesFeed
+from cyndiloza.apps.feeds.places import PlacesFeed, PlacesByArticleFeed
 
 
 urlpatterns = patterns('',

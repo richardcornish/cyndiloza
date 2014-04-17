@@ -4,6 +4,8 @@ from django import template
     Randomized string encoding
     Inspired by John Gruber's Markdown: 
     http://daringfireball.net/projects/markdown/syntax#autolink
+
+    http://djangosnippets.org/snippets/216/
 """
 register = template.Library()
 

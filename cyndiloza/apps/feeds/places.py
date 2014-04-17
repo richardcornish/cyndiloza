@@ -1,8 +1,10 @@
 from django.contrib.syndication.views import Feed
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
+
 from django.shortcuts import get_object_or_404
-from cyndiloza.news.models import Place
+
+from cyndiloza.apps.news.models import Place
 
 
 class PlacesFeed(Feed):

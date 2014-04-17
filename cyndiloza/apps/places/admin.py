@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
 
-from cyndiloza.places.models import Place, District
-from cyndiloza.places.forms import PlaceForm
+from cyndiloza.apps.places.models import Place, District
+from cyndiloza.apps.places.forms import PlaceForm
 
 
 class DistrictAdmin(admin.ModelAdmin):

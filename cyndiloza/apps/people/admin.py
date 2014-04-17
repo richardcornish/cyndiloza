@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
 
-from cyndiloza.people.models import Person
+from cyndiloza.apps.people.models import Person
 
 
 class PersonOptions(admin.ModelAdmin):
