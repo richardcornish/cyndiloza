@@ -32,6 +32,7 @@ place_detail = PlaceDetailView.as_view()
 
 class PlaceListView(ListView):
     model = Publication
+    template_name = 'places/place_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(PlaceListView, self).get_context_data(**kwargs)
