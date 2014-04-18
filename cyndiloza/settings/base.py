@@ -55,7 +55,7 @@ INSTALLED_APPS = (
     'cyndiloza.apps.news',
     'cyndiloza.apps.people',
     'cyndiloza.apps.places',
-    'cyndiloza.apps.utils',
+    'cyndiloza.templatetags',
 
     # Third-party apps
     'robots',
@@ -148,7 +148,7 @@ TEMPLATE_LOADERS = (
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 TEMPLATE_CONTEXT_PROCESSORS += (
-    'cyndiloza.apps.utils.context_processors.site',
+    'cyndiloza.context_processors.site',
 )
 
 TEMPLATE_DIRS = (
