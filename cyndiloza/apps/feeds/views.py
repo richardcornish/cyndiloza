@@ -45,6 +45,6 @@ class ArticlesByPlaceFeed(Feed):
         return obj.get_absolute_url()
 
     def items(self, obj):
-        return obj.article_set.all()[:20]
+        return obj.article_set.all().filter(published=True)[:20]
 
 feed_articles_by_place = ArticlesByPlaceFeed()
