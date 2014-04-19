@@ -9,9 +9,7 @@
 
 {% block script %}
 <script>
-$(function () {
-    email('{{ about.user.email|encode_string }}');
-});
+email('{{ about.user.email|encode_string|safe }}');
 </script>
 {% endblock %}
 
