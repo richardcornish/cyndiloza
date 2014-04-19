@@ -1,27 +1,18 @@
-from django.conf.urls import patterns, url, include
-
-from cyndiloza.apps.feeds.articles import ArticlesFeed
-from cyndiloza.apps.feeds.places import PlacesFeed, PlacesByArticleFeed
+from django.conf.urls import patterns, include, url
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns('cyndiloza.apps.feeds.views',
 
     # Articles
     url(r'^articles/$',
-        ArticlesFeed(),
-        name='articles_article_feed'
+        view='feed_articles',
+        name='feed_articles'
     ),
 
-    # Places
-    url(r'^places/$',
-        PlacesFeed(),
-        name='articles_place_feed'
-    ),
-
-    # Places by Article
+    # Articles by Place
     url(r'^places/(?P<slug>[-\w]+)/$',
-        PlacesByArticleFeed(),
-        name='articles_place_by_article_feed'
+        view='feed_articles_by_place',
+        name='feed_articles_by_place'
     ),
 
 )

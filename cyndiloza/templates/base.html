@@ -29,8 +29,7 @@
     {% endblock %}
 
     {% block feeds %}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}'s articles" href="{% url 'articles_article_feed' %}">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}'s places" href="{% url 'articles_place_feed' %}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}'s news articles" href="{% url 'feed_articles' %}">
     {% endblock %}
 
     {% block extra_head %}
@@ -63,7 +62,7 @@
 <h3>Navigation</h3>
 <ul>
 <li class="home"><a href="{% url 'home' %}" class="hover">Home</a></li>
-<li class="about"><a href="{% url 'about_about_detail' %}" class="hover">About</a></li>
+<li class="about"><a href="{% url 'about_list' %}" class="hover">About</a></li>
 <li class="articles"><a href="{% url 'news_article_list' %}" class="hover">Articles</a></li>
 <li class="places"><a href="{% url 'places_place_list' %}" class="hover">Places</a></li>
 </ul>
@@ -90,7 +89,7 @@
 {% filter typogrify %}
 <div class="wrap clearfix">
     <footer class="footer">
-            <p>&#169; <span class="number">{% now "Y" %}</span> <a href="{% url "home" %}">{{ site.name }}</a>. Website design by <a href="http://richardcornish.com">Richard Cornish</a>. <span class="icon icon-rss"><a href="{% url "articles_article_feed" %}" rel="nofollow">RSS feed</a></span> <span class="icon icon-twitter"><a href="http://twitter.com/cloza/">@cloza</a></span></p>
+            <p>&#169; <span class="number">{% now "Y" %}</span> <a href="{% url "home" %}">{{ site.name }}</a>. Website design by <a href="http://richardcornish.com">Richard Cornish</a>. <span class="icon icon-rss"><a href="{% url "feed_articles" %}" rel="nofollow">RSS feed</a></span> <span class="icon icon-twitter"><a href="http://twitter.com/cloza/">@cloza</a></span></p>
             <div class="quiet">
                 <p>Articles are copyright of their respective publications.</p>
             </div>

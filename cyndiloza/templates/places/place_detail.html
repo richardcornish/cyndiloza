@@ -12,6 +12,11 @@
 
 {% block title %}{{ place.name|smartypants|fix_ampersands }} &#8226; {% endblock %}
 
+{% block feeds %}
+{{ block.super }}
+<link rel="alternate" type="application/rss+xml" title="{{ site.name }}'s news articles at {{ place.name }}" href="{% url 'feed_articles_by_place' place.slug %}">
+{% endblock %}
+
 {% block body_class %}places{% endblock %}
 
 {% block maincontent %}
@@ -61,7 +66,7 @@
 {% endfor %}
 </ul>
 
-<p><a href="{% url "articles_place_by_article_feed" place.slug %}">RSS feed for {{ place.name }}</a></p>
+<p><a href="{% url "feed_articles_by_place" place.slug %}">RSS feed for {{ place.name }}</a></p>
 
 </div>
 

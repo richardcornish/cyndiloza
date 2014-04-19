@@ -1,0 +1,7 @@
+{% load markup %}{% spaceless %}
+
+{% filter markdown %}
+{{ obj.body|safe }}
+{% endfilter %}
+
+{% endspaceless %}
