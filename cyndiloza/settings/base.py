@@ -149,6 +149,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'cyndiloza.context_processors.site',
+    'cyndiloza.context_processors.map',
 )
 
 TEMPLATE_DIRS = (
@@ -159,3 +160,5 @@ TEMPLATE_DIRS = (
 # Project-specific settings
 
 REMOVE_WWW = True
+
+GOOGLE_MAPS_KEY = os.environ["CYNDILOZA_GOOGLE_MAPS"]
