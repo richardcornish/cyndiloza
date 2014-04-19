@@ -14,7 +14,7 @@ class About(models.Model):
         ordering = ["user"]
 
     def __unicode__(self):
-        return u"%s %s" % (self.user.first_name, self.user.last_name)
+        return u"%s" % self.user.get_full_name()
 
     def get_absolute_url(self):
-        return reverse("about_list", args=[str(self.pk)])
+        return reverse("about_list")
