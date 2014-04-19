@@ -1,31 +1,30 @@
-{% autoescape off %}
-{% load url from future %}
-{% load typogrify_tags %}
+{% load i18n staticfiles typogrify_tags %}
 
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html lang="{% get_current_language as language %}{{ language }}" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
-    <title>{% block name %}{% block title %}{% endblock %}Cyndi Loza{% endblock %}</title>
+    <meta charset="utf-8">
+    <title>{% block name %}{% block title %}{% endblock %}{{ site.name }}{% endblock %}</title>
     {# <meta name="viewport" content="width=device-width, initial-scale=1"> #}
-    
-    <meta name="description" content="{% block description %}Cyndi Loza is an associate editor and journalist in Chicago. She edits for Guerrero Howe Custom Media and wrote for the Chicago Sun Times.{% endblock %}">
+
+    <meta name="description" content="{% block description %}
+    Cyndi Loza is an associate editor and journalist in Chicago. She edits for Guerrero Howe Custom Media and wrote for the Chicago Sun Times.
+    {% endblock %}">
 
     <meta name="author" content="{{ site.name }}">
     <meta name="copyright" content="Copyright (c) {% now "Y" %} {{ site.name }}">
-    <meta name="robots" content="index, follow, archive">
-    <meta name="apple-mobile-web-app-title" content="{{ site.name }}">
-    
-    <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}img/apple-touch-icon-144.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}img/apple-touch-icon-114.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}img/apple-touch-icon-72.png">
-    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}img/apple-touch-icon.png">
+    <meta name="robots" content="index, follow, noarchive">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/ios7-152.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/ios7-120.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/ios7-76.png' %}">
 
     {% block css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
 
     {% block feeds %}
@@ -47,7 +46,7 @@
 {% filter typogrify %}
 <div id="header-wrap">
 <div id="header">
-<h1><a href="{% url 'home' %}">Cyndi <span class="letter">L</span>oza</a></h1>
+<h1><a href="{% url 'home' %}">Cyndi Loza</a></h1>
 <h2>A journalist's portfolio</h2>
 <p class="access"><a href="#maincontent">Skip navigation</a></p>
 </div>
@@ -89,7 +88,7 @@
 {% filter typogrify %}
 <div class="wrap clearfix">
     <footer class="footer">
-            <p>&#169; <span class="number">{% now "Y" %}</span> <a href="{% url "home" %}">{{ site.name }}</a>. Website design by <a href="http://richardcornish.com">Richard Cornish</a>. <span class="icon icon-rss"><a href="{% url "feed_articles" %}" rel="nofollow">RSS feed</a></span> <span class="icon icon-twitter"><a href="http://twitter.com/cloza/">@cloza</a></span></p>
+            <p>&#169; <span class="number">{% now "Y" %}</span> <a href="{% url "home" %}">{{ site.name }}</a>. Design by <a href="http://richardcornish.com">Rich Cornish</a>. <span class="icon icon-rss"><a href="{% url "feed_articles" %}" rel="nofollow">RSS feed</a></span> <span class="icon icon-twitter"><a href="http://twitter.com/cloza/">@cloza</a></span></p>
             <div class="quiet">
                 <p>Articles are copyright of their respective publications.</p>
             </div>
@@ -102,10 +101,10 @@
 
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAivetzV_dDCXqfRzkwu4dwhRzZVTaG9eRMaThsfivWtmyKVkBHxSKawR92q1ViFQCLi-77tOZpV7D3A&amp;sensor=false"></script>
 {# <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA7LoYcP-DZRBl1k5kvWtii8Zk7Uk99xWU&amp;sensor=false"></script> #}
-<script src="{{ STATIC_URL }}js/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.color.js"></script>
-<script src="{{ STATIC_URL }}js/site.js"></script>
-<script src="{{ STATIC_URL }}js/map.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.color.js' %}"></script>
+<script src="{% static 'js/site.js' %}"></script>
+<script src="{% static 'js/map.js' %}"></script>
 {% block script %}
 {% endblock %}
 
@@ -117,4 +116,4 @@
 </script>
 
 </body>
-</html>{% endautoescape %}
+</html>
