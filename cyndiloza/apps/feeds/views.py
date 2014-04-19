@@ -29,8 +29,8 @@ feed_articles = ArticlesFeed()
 
 class ArticlesByPlaceFeed(Feed):
 
-    title_template = 'feeds/places/obj_name.html'
-    description_template = 'feeds/places/obj_description.html'
+    title_template = 'feeds/articles/obj_headline.html'
+    description_template = 'feeds/articles/obj_body.html'
 
     def get_object(self, request, slug):
         return get_object_or_404(Place, slug=slug)
