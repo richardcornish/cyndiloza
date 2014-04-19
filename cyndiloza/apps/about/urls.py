@@ -5,7 +5,7 @@ urlpatterns = patterns('cyndiloza.apps.about.views',
 
     url(r'^$',
         view='about_list',
-        name='about_about_detail'
+        name='about_list'
     ),
 
 )

@@ -5,11 +5,15 @@ from cyndiloza.apps.about.admin_select import NiceUserModelAdmin
 
 
 class AboutOptions(NiceUserModelAdmin):
-    list_display = ('user',)
+    list_display = ('full_name',)
     fieldsets = (
         (None, {
-            'fields': ('user', 'body', 'photo', 'resume',)
+            'fields': ('user', 'blurb', 'body', 'photo', 'resume',)
         }),
     )
+
+    def full_name(self, obj):
+        return obj.user.get_full_name()
+    full_name.admin_order_field = 'user__full_name'
 
 admin.site.register(About, AboutOptions)
