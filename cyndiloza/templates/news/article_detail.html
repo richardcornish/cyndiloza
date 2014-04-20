@@ -34,7 +34,7 @@ $(document).unload(function(){ GUnload(); });
 //--><!]]></script>
 {% endblock %}
 
-{% block title %}{{ article.headline|smartypants|fix_ampersands }} &#8226; {% endblock %}
+{% block title %}{{ article.headline|smartypants|fix_ampersands }} &#183; {{ block.super }}{% endblock %}
 {% block description %}{% if article.summary %}{{ article.summary|markdown|striptags|smartypants|fix_ampersands }}{% else %}{{ article.body|markdown|striptags|smartypants|fix_ampersands|truncatewords:"20" }}{% endif %}{% endblock %}
 
 {% block body_class %}articles{% endblock %}

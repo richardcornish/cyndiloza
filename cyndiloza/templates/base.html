@@ -6,10 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{% block name %}{% block title %}{% endblock %}{{ site.name }}{% endblock %}</title>
-
-    {# <meta name="viewport" content="width=device-width, initial-scale=1"> #}
-    <meta name="apple-mobile-web-app-title" content="{{ site.name }}">
+    <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
     <meta name="description" content="{% block description %}Cyndi Loza is an editor and journalist in Chicago, having worked at the Chicago Sun Times, Reno Gazette-Journal, and Guerrero Howe Custom Media.{% endblock %}">
 
@@ -17,6 +14,8 @@
     <meta name="copyright" content="Copyright (c) {% now "Y" %} {{ site.name }}">
     <meta name="robots" content="index, follow, noarchive">
 
+    {# <meta name="viewport" content="width=device-width, initial-scale=1"> #}
+    <meta name="apple-mobile-web-app-title" content="{{ site.name }}">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
     {% block css %}

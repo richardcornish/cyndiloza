@@ -33,7 +33,7 @@ $(document).unload(function(){ GUnload(); });
 
 {% endblock %}
 
-{% block title %}Articles &#8226; {% endblock %}
+{% block title %}Articles &#183; {{ block.super }}{% endblock %}
 {% block body %}body-articles{% endblock %}
 
 {% block maincontent %}

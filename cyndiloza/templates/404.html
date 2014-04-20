@@ -3,7 +3,7 @@
 {% load markup typogrify_tags email %}
 
 
-{% block title %}Page not found &#8226; {% endblock %}
+{% block title %}Page not found &#183; {{ block.super }}{% endblock %}
 {% block description %}Page not found{% endblock %}
 
 {% block css_extra %}

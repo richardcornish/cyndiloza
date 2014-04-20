@@ -3,7 +3,7 @@
 {% load markup humanize typogrify_tags partition %}
 
 
-{% block title %}Articles &#8226; {% endblock %}
+{% block title %}Articles &#183; {{ block.super }}{% endblock %}
 
 {% block body_class %}articles{% endblock %}
 

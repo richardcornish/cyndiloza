@@ -10,7 +10,7 @@
 </style>
 {% endblock %}
 
-{% block title %}{{ place.name|smartypants|fix_ampersands }} &#8226; {% endblock %}
+{% block title %}{{ place.name|smartypants|fix_ampersands }} &#183; {{ block.super }}{% endblock %}
 
 {% block feeds %}
 {{ block.super }}

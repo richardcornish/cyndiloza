@@ -3,7 +3,7 @@
 {% load markup typogrify_tags email %}
 
 
-{% block title %}Page error &#8226; {% endblock %}
+{% block title %}Page error &#183; {{ block.super }}{% endblock %}
 {% block description %}Page error{% endblock %}
 
 {% block css_extra %}

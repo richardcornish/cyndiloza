@@ -3,7 +3,7 @@
 {% load markup typogrify_tags thumbnail email %}
 
 
-{% block title %}About &#8226; {% endblock %}
+{% block title %}About &#183; {{ block.super }}{% endblock %}
 
 {% block body_class %}about{% endblock %}
 
