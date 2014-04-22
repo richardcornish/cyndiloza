@@ -9,6 +9,10 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+ALLOWED_HOSTS = [
+    '127.0.0.1'
+]
+
 MEDIA_ROOT = os.path.join(REPOSITORY_ROOT, 'assets', 'media')
 
 MEDIA_URL = '/media/'
