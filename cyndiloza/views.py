@@ -23,7 +23,7 @@ home = HomeView.as_view()
 
 
 def not_found(request):
-    return render(request, '404.html')
+    return render(request, '404.html', {'request_path': request.path})
 
 def server_error(request):
     return render(request, '500.html')
