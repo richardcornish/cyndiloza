@@ -47,6 +47,8 @@ urlpatterns = patterns('',
 if getattr(settings, 'DEBUG', False):
     urlpatterns += staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# Custom 404 error handler to render {{ site }}
+handler404 = 'cyndiloza.views.not_found'
 
 # Custom 500 error handler to render {{ site }}
 handler500 = 'cyndiloza.views.server_error'
