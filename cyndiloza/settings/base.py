@@ -149,6 +149,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'cyndiloza.context_processors.site',
+    'cyndiloza.context_processors.superuser',
     'cyndiloza.context_processors.map',
     'cyndiloza.context_processors.analytics',
 )
