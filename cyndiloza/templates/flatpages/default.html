@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load markup typogrify_tags %}
+
+
+{% block title %}{{ flatpage.title|typogrify|striptags }} &#183; {{ block.super }}{% endblock %}
+
+
+{% block body_class %}flatpage flatpage-{{ flatpage.id }}{% endblock %}
+
+
+{% block maincontent %}
+
+<h3>{{ flatpage.title|typogrify }}</h3>
+
+{{ flatpage.content|markdown|typogrify }}
+
+{% endblock %}
