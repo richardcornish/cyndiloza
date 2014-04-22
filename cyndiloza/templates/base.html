@@ -60,7 +60,7 @@
 <li class="home"><a href="{% url 'home' %}" class="hover">Home</a></li>
 <li class="about"><a href="{% url 'about_list' %}" class="hover">About</a></li>
 <li class="articles"><a href="{% url 'news_article_list' %}" class="hover">Articles</a></li>
-<li class="places"><a href="{% url 'places_place_list' %}" class="hover">Places</a></li>
+<li class="places"><a href="{% url 'place_list' %}" class="hover">Places</a></li>
 </ul>
 </div>
 </div>
@@ -85,7 +85,7 @@
 {% filter typogrify %}
 <div class="wrap clearfix">
     <footer class="footer">
-            <p>&#169; <span class="number">{% now "Y" %}</span> <a href="{% url "home" %}">{{ site.name }}</a>. Design by <a href="http://richardcornish.com">Rich Cornish</a>. <span class="icon icon-rss"><a href="{% url "feed_articles" %}" rel="nofollow">RSS feed</a></span> <span class="icon icon-twitter"><a href="http://twitter.com/cloza/">@cloza</a></span></p>
+            <p>&#169; <span class="number">{% now "Y" %}</span> {{ site.name }}. Design by <a href="http://richardcornish.com">Rich Cornish</a>. <span class="icon icon-rss"><a href="{% url "feed_articles" %}" rel="nofollow">RSS feed</a></span> <span class="icon icon-twitter"><a href="http://twitter.com/cloza/">@cloza</a></span></p>
             <div class="quiet">
                 <p>Articles are copyright of their respective publications.</p>
             </div>
