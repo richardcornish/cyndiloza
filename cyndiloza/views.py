@@ -1,5 +1,6 @@
 from django.views.generic import ListView
-from django.shortcuts import render
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from cyndiloza.apps.news.models import Article, Publication, FavoriteList
 from cyndiloza.apps.about.models import About
@@ -23,7 +24,11 @@ home = HomeView.as_view()
 
 
 def not_found(request):
-    return render(request, '404.html', {'request_path': request.path})
+    response = render_to_response('404.html', locals(), context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
 
 def server_error(request):
-    return render(request, '500.html')
+    response = render_to_response('500.html', locals(), context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
