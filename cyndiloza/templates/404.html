@@ -15,7 +15,7 @@
 
 <div id="story">
 <div id="article">
-<h3>The page you requested could not be found</h3>
+<h3>The page "{{ request_path }}" could not be found</h3>
 <p>If you think something should be here and it isn't, please email me at {{ superuser.email|encode_string|safe }}. Otherwise, it's probably best to return to the <a href="/">homepage</a> and look for things there.</p>
 </div>
 </div>
