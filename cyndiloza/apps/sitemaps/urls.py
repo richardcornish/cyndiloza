@@ -1,28 +1,22 @@
-from django.conf.urls import patterns, url, include
-from django.contrib.sitemaps import GenericSitemap, FlatPageSitemap
+from django.conf.urls import patterns, include, url
+from django.contrib.sitemaps import FlatPageSitemap
 
-from cyndiloza.apps.news.models import Article
-from cyndiloza.apps.news.models import Place
-
-
-article_dict = {
-    'queryset': Article.objects.filter(published=True),
-    'date_field': 'date',
-}
-
-place_dict = {
-    'queryset': Place.objects.all(),
-}
+from cyndiloza.apps.sitemaps.views import ArticleSitemap, PlaceSitemap
 
 
 sitemaps = {
-    'article': GenericSitemap(article_dict, priority=0.5),
-    'place': GenericSitemap(place_dict, priority=0.5),
-    'flatpages': FlatPageSitemap,
+    'articles': ArticleSitemap,
+    'places': PlaceSitemap,
+    'flatpages': FlatPageSitemap
 }
 
 
 urlpatterns = patterns('django.contrib.sitemaps.views',
-    (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
+
+    # Sitemap index
+    url(r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}, name='sitemaps_index'),
+
+    # Sitemap for individual apps
     (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+
 )
