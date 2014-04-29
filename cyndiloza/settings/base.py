@@ -27,8 +27,6 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-SITE_ID = 1
-
 
 # Application definition
 
@@ -160,6 +158,8 @@ TEMPLATE_DIRS = (
 
 
 # Project-specific settings
+
+SITE_ID = 1
 
 REMOVE_WWW = True
 
