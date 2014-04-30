@@ -1,4 +1,4 @@
-Django==1.6.3
+Django==1.6.4
 Fabric==1.8.3
 Markdown==2.4
 MySQL-python==1.2.5
