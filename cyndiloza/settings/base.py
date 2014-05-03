@@ -99,7 +99,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ['CYNDILOZA_DB_NAME'],
-        'USER': os.environ['CYNDILOZA_DB_NAME'],
+        'USER': os.environ['CYNDILOZA_DB_USER'],
         'PASSWORD': os.environ['CYNDILOZA_DB_PASS'],
         'HOST': '',
         'PORT': '',
