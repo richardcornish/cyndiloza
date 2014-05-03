@@ -213,14 +213,6 @@ def setup_repo():
         run('git clone %s %s' % (env.repo, env.project))
 
 
-def chmod_manage():
-    """
-    Change mode of manage.py to execute
-    """
-    with cd(env.project_root):
-        run('chmod +x manage.py')
-
-
 def setup_database():
     """
     Syncs the database for the first time and fakes possible migrations
@@ -236,7 +228,6 @@ def setup():
     """
     setup_webfaction()
     setup_repo()
-    chmod_manage()
     install_reqs()
     setup_database()
     collect_static()
