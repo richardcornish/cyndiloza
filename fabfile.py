@@ -116,7 +116,7 @@ def collect_static():
     Copies all static files from project to static directory of assets webapp
     """
     with cd(env.project_root):
-        activate_venv('./manage.py collectstatic --clear --noinput --verbosity 0')
+        activate_venv('./manage.py collectstatic --clear --noinput --verbosity=0')
 
 
 def restart_server():
