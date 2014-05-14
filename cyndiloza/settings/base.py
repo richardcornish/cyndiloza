@@ -149,7 +149,6 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'cyndiloza.context_processors.site',
     'cyndiloza.context_processors.superuser',
     'cyndiloza.context_processors.map',
-    'cyndiloza.context_processors.analytics',
 )
 
 TEMPLATE_DIRS = (
