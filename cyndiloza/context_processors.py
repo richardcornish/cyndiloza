@@ -27,12 +27,3 @@ def map(request):
     google_maps_key = getattr(settings, 'GOOGLE_MAPS_KEY', '')
 
     return {'GOOGLE_MAPS_KEY': google_maps_key}
-
-
-def analytics(request):
-    """
-    Gets the Google Analytics web property ID from settings and adds it to the template context.
-    """
-    google_analytics = getattr(settings, 'GOOGLE_ANALYTICS', '')
-
-    return {'GOOGLE_ANALYTICS': google_analytics}

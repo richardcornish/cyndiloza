@@ -14,6 +14,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+INTERNAL_IPS = (
+    '127.0.0.1',
+)
+
 MEDIA_ROOT = os.path.join(REPOSITORY_ROOT, 'assets', 'media')
 
 MEDIA_URL = '/media/'
