@@ -63,6 +63,7 @@ env.hosts = ['%s@%s' % (env.user, env.host)]
 env.django_root  = '/home/%s/webapps/%s'    % (env.user, env.django)
 env.project_root = '/home/%s/webapps/%s/%s' % (env.user, env.django, env.project)
 env.assets_root  = '/home/%s/webapps/%s'    % (env.user, env.assets)
+env.settings     = '%s.settings.production' % (env.project)
 
 
 """
@@ -74,7 +75,7 @@ def prepare_deploy():
     Prepares deploy with dependencies, commits, merge, and push
     """
     # message = raw_input("Enter a Git commit message: ")
-    # local('./manage.py test')
+    # local('python manage.py test --settings=%s' % env.settings)
     # local('pip freeze > requirements.txt')
     # local('git add -A && git commit -m "%s"' % message)
     # local('git checkout master && git merge ' + branch_name)
@@ -107,8 +108,8 @@ def sync_database():
     Syncs the database with new tables and possible migrations
     """
     with cd(env.project_root):
-        activate_venv('./manage.py syncdb --noinput')
-        activate_venv('./manage.py migrate --noinput')
+        activate_venv('python manage.py syncdb --noinput --settings=%s' % env.settings)
+        activate_venv('python manage.py migrate --noinput --settings=%s' % env.settings)
 
 
 def collect_static():
@@ -116,7 +117,7 @@ def collect_static():
     Copies all static files from project to static directory of assets webapp
     """
     with cd(env.project_root):
-        activate_venv('./manage.py collectstatic --clear --noinput --verbosity=0')
+        activate_venv('python manage.py collectstatic --clear --noinput --verbosity=0 --settings=%s' % env.settings)
 
 
 def restart_server():
@@ -218,8 +219,8 @@ def setup_database():
     Syncs the database for the first time and fakes possible migrations
     """
     with cd(env.project_root):
-        activate_venv('./manage.py syncdb --all')
-        activate_venv('./manage.py migrate --fake --noinput')
+        activate_venv('python manage.py syncdb --all --settings=%s' % env.settings)
+        activate_venv('python manage.py migrate --fake --noinput --settings=%s' % env.settings)
 
 
 def setup():
