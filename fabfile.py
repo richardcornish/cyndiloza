@@ -22,11 +22,11 @@ Fabric env variables:
 """
 
 # WebFaction username
-env.user = os.environ['RICHARDCORNISH_WF_NAME']
+env.user = os.environ['WEBFACTION_NAME']
 # WebFaction password
-env.password = os.environ['RICHARDCORNISH_WF_PASS']
+env.password = os.environ['WEBFACTION_PASS']
 # WebFaction server
-env.host = 'web48.webfaction.com'
+env.host = '%s.webfactional.com' % env.user
 # WebFaction IP
 env.ip = '75.126.137.82'
 
