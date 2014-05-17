@@ -1,5 +1,5 @@
 """
-WSGI config for hi project.
+WSGI config for cyndiloza project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
