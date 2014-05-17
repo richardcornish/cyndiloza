@@ -87,6 +87,7 @@ def pull_repo():
     """
     Updates Django project with newest code from Git repository
     """
+    print(green('\nUpdating code from repository... (might need password)'))
     with cd(env.project_root):
         run('git pull origin master')
 
@@ -95,6 +96,7 @@ def install_reqs():
     """
     Installs dependencies with Pip
     """
+    print(green('\nInstalling dependency packages...'))
     with cd(env.project_root):
         with prefix('workon %s' % env.virtualenv):
             run('pip install -r requirements.txt')
@@ -104,6 +106,7 @@ def sync_database():
     """
     Syncs the database with new tables and possible migrations
     """
+    print(green('\nSyncing the database...'))
     with cd(env.project_root):
         with prefix('workon %s' % env.virtualenv):
             run('python manage.py syncdb --noinput --settings=%s' % env.settings)
@@ -114,6 +117,7 @@ def collect_static():
     """
     Copies all static files from project to static directory of assets webapp
     """
+    print(green('\nCopying static files to assets server...'))
     with cd(env.project_root):
         with prefix('workon %s' % env.virtualenv):
             run('python manage.py collectstatic --clear --noinput --verbosity=0 --settings=%s' % env.settings)
@@ -123,6 +127,7 @@ def restart_server():
     """
     Restarts Apache web server
     """
+    print(green('\nRestarting web server...'))
     with cd(env.django_root):
         run('./apache2/bin/stop')
         run('./apache2/bin/start')
@@ -132,7 +137,7 @@ def check_website():
     """
     Checks that the website returns an HTTP status code of 200
     """
-    print('Checking website...')
+    print(green('\nChecking website...'))
     if '200 OK' in local('curl --silent -I "%s"' % env.website_url, capture=True):
         print(green('\nWay to go, Ace!'))
     else:
@@ -209,6 +214,7 @@ def setup_repo():
     """
     Downloads Django project from Git repository for the first time
     """
+    print(green('\nDownloading code from repository... (might need password)'))
     with cd(env.django_root):
         run('git clone %s %s' % (env.repo, env.project))
 
@@ -217,6 +223,7 @@ def setup_database():
     """
     Syncs the database for the first time and fakes possible migrations
     """
+    print(green('\nSyncing the database...'))
     with cd(env.project_root):
         with prefix('workon %s' % env.virtualenv):
             run('python manage.py syncdb --all --settings=%s' % env.settings)
