@@ -1,4 +1,4 @@
-from fabric.api import cd, env, local, run
+from fabric.api import cd, env, local, prefix, run
 from fabric.colors import red, green
 
 import os, xmlrpclib
@@ -48,8 +48,8 @@ env.db_pass = os.environ['RICHARDCORNISH_DB_PASS']
 
 # SSH URL of Git repo (must be Git)
 env.repo = 'git@github.com:richardcornish/cyndiloza.git'
-# URL of "Website", sans http(s)://
-env.website_url = 'cyndiloza.com'
+# URL of "Website"
+env.website_url = 'http://cyndiloza.com'
 
 
 """
@@ -83,10 +83,6 @@ def prepare_deploy():
     pass
 
 
-def activate_venv(cmd):
-    run('workon %s; %s' % (env.virtualenv, cmd))
-
-
 def pull_repo():
     """
     Updates Django project with newest code from Git repository
@@ -100,7 +96,8 @@ def install_reqs():
     Installs dependencies with Pip
     """
     with cd(env.project_root):
-        activate_venv('pip install -r requirements.txt')
+        with prefix('workon %s' % env.virtualenv):
+            run('pip install -r requirements.txt')
 
 
 def sync_database():
@@ -108,8 +105,9 @@ def sync_database():
     Syncs the database with new tables and possible migrations
     """
     with cd(env.project_root):
-        activate_venv('python manage.py syncdb --noinput --settings=%s' % env.settings)
-        activate_venv('python manage.py migrate --noinput --settings=%s' % env.settings)
+        with prefix('workon %s' % env.virtualenv):
+            run('python manage.py syncdb --noinput --settings=%s' % env.settings)
+            run('python manage.py migrate --noinput --settings=%s' % env.settings)
 
 
 def collect_static():
@@ -117,7 +115,8 @@ def collect_static():
     Copies all static files from project to static directory of assets webapp
     """
     with cd(env.project_root):
-        activate_venv('python manage.py collectstatic --clear --noinput --verbosity=0 --settings=%s' % env.settings)
+        with prefix('workon %s' % env.virtualenv):
+            run('python manage.py collectstatic --clear --noinput --verbosity=0 --settings=%s' % env.settings)
 
 
 def restart_server():
@@ -134,7 +133,7 @@ def check_website():
     Checks that the website returns an HTTP status code of 200
     """
     print('Checking website...')
-    if '200 OK' in local('curl --silent -I "http://%s"' % env.website_url, capture=True):
+    if '200 OK' in local('curl --silent -I "%s"' % env.website_url, capture=True):
         print(green('\nWay to go, Ace!'))
     else:
         print(red('\nDude, the website is down!'))
@@ -219,8 +218,9 @@ def setup_database():
     Syncs the database for the first time and fakes possible migrations
     """
     with cd(env.project_root):
-        activate_venv('python manage.py syncdb --all --settings=%s' % env.settings)
-        activate_venv('python manage.py migrate --fake --noinput --settings=%s' % env.settings)
+        with prefix('workon %s' % env.virtualenv):
+            run('python manage.py syncdb --all --settings=%s' % env.settings)
+            run('python manage.py migrate --fake --noinput --settings=%s' % env.settings)
 
 
 def setup():
